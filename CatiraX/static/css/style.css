@@ -10,10 +10,10 @@
 body {
     /* Gradiente suave de azul claro */
     background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);
-    height: 100vh; /* Ocupa a altura total da tela */
+    height: 100vh;
     display: flex;
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+    justify-content: center;
 }
 
 /* 3. Container Principal */
@@ -28,16 +28,16 @@ body {
 .auth-box {
     background-color: #ffffff;
     width: 100%;
-    max-width: 400px; /* Largura máxima do cartão */
+    max-width: 400px;
     padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 /* Título */
 .auth-box h2 {
-    color: #0d47a1; /* Azul Escuro Forte */
+    color: #0d47a1;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
 }
@@ -45,13 +45,13 @@ body {
 /* 5. Grupos de Input */
 .input-group {
     margin-bottom: 1.2rem;
-    text-align: left; /* Alinha labels e inputs à esquerda */
+    text-align: left;
 }
 
 .input-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #1565c0; /* Azul médio/escuro */
+    color: #1565c0;
     font-weight: 600;
     font-size: 0.9rem;
 }
@@ -59,7 +59,7 @@ body {
 .input-group input {
     width: 100%;
     padding: 12px;
-    border: 2px solid #e3f2fd; /* Borda azul bem claro */
+    border: 2px solid #e3f2fd;
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
@@ -68,15 +68,15 @@ body {
 
 /* Efeito ao clicar no input */
 .input-group input:focus {
-    border-color: #1976d2; /* Muda a borda para azul escuro */
-    background-color: #f1f8ff; /* Fundo levemente azulado */
+    border-color: #1976d2;
+    background-color: #f1f8ff;
 }
 
 /* 6. Botão de Entrar (Azul Escuro) */
 .btn-auth {
     width: 100%;
     padding: 12px;
-    background-color: #0d47a1; /* Azul Escuro Principal */
+    background-color: #0d47a1;
     color: white;
     border: none;
     border-radius: 8px;
@@ -89,12 +89,12 @@ body {
 }
 
 .btn-auth:hover {
-    background-color: #1565c0; /* Azul um pouco mais claro ao passar o mouse */
+    background-color: #1565c0;
 }
 
 /* 7. Links (Esqueci a senha, Criar conta, Voltar) */
 .auth-box a {
-    display: block; /* Um link por linha */
+    display: block;
     color: #1976d2;
     text-decoration: none;
     font-size: 0.9rem;
@@ -110,7 +110,7 @@ body {
 /* Estilo específico para o link de 'Voltar' para dar destaque */
 .auth-box a[href="index.html"] {
     margin-top: 15px;
-    color: #546e7a; /* Um cinza azulado para diferenciar */
+    color: #546e7a;
     font-size: 0.85rem;
 }
 
@@ -121,14 +121,14 @@ body {
     right: 25px;
     
     /* Cores e Fundo */
-    background: rgba(255, 77, 77, 0.95); /* Vermelho com leve transparência */
+    background: rgba(255, 77, 77, 0.95);
     color: #fff;
     
     /* Formato e Sombra */
     padding: 16px 28px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(255, 77, 77, 0.3);
-    border-left: 6px solid #b30000; /* Detalhe vermelho escuro na borda */
+    border-left: 6px solid #b30000; 
     
     /* Tipografia */
     font-family: 'Segoe UI', Roboto, sans-serif;
@@ -170,8 +170,8 @@ body {
 }
 
 .input-container input {
-    width: 100%; /* Garante que o input ocupe o espaço todo */
-    padding-right: 40px; /* Abre espaço para o ícone não cobrir o texto */
+    width: 100%; 
+    padding-right: 40px; 
 }
 
 .toggle-password {
@@ -192,7 +192,7 @@ body {
     position: fixed;
     top: 25px;
     right: 25px;
-    background: rgba(40, 167, 69, 0.95); /* Verde sucesso */
+    background: rgba(40, 167, 69, 0.95); 
     color: #fff;
     padding: 16px 28px;
     border-radius: 12px;

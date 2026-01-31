@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHomePage</title>
+</head>
+<body>
+    <h1>Teste homePage</h1>
+</body>
+
+<script>
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+    if (!usuario) {
+        alert("Você precisa fazer login!");
+        window.location.href = "login.html";
+    } else {
+        console.log("Usuário logado:", usuario.nome_completo);
+    }
+</script>
+
+</html>
+
+
