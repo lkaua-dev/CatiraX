@@ -1,0 +1,212 @@
+/* 1. Reset Global e Fonte */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 2. Corpo da página (Fundo Azul Claro) */
+body {
+    /* Gradiente suave de azul claro */
+    background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);
+    height: 100vh; /* Ocupa a altura total da tela */
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* 3. Container Principal */
+.auth-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 4. A Caixa de Login (Fundo Branco com sombra) */
+.auth-box {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px; /* Largura máxima do cartão */
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-align: center;
+}
+
+/* Título */
+.auth-box h2 {
+    color: #0d47a1; /* Azul Escuro Forte */
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* 5. Grupos de Input */
+.input-group {
+    margin-bottom: 1.2rem;
+    text-align: left; /* Alinha labels e inputs à esquerda */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #1565c0; /* Azul médio/escuro */
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e3f2fd; /* Borda azul bem claro */
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Efeito ao clicar no input */
+.input-group input:focus {
+    border-color: #1976d2; /* Muda a borda para azul escuro */
+    background-color: #f1f8ff; /* Fundo levemente azulado */
+}
+
+/* 6. Botão de Entrar (Azul Escuro) */
+.btn-auth {
+    width: 100%;
+    padding: 12px;
+    background-color: #0d47a1; /* Azul Escuro Principal */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s;
+}
+
+.btn-auth:hover {
+    background-color: #1565c0; /* Azul um pouco mais claro ao passar o mouse */
+}
+
+/* 7. Links (Esqueci a senha, Criar conta, Voltar) */
+.auth-box a {
+    display: block; /* Um link por linha */
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+}
+
+.auth-box a:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+}
+
+/* Estilo específico para o link de 'Voltar' para dar destaque */
+.auth-box a[href="index.html"] {
+    margin-top: 15px;
+    color: #546e7a; /* Um cinza azulado para diferenciar */
+    font-size: 0.85rem;
+}
+
+/* Estilo do Toast (Pop-up de Erro) */
+.toast-erro {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    
+    /* Cores e Fundo */
+    background: rgba(255, 77, 77, 0.95); /* Vermelho com leve transparência */
+    color: #fff;
+    
+    /* Formato e Sombra */
+    padding: 16px 28px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(255, 77, 77, 0.3);
+    border-left: 6px solid #b30000; /* Detalhe vermelho escuro na borda */
+    
+    /* Tipografia */
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    
+    /* Layout */
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+    
+    /* Animação de entrada */
+    animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Animação para deslizar do canto */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Classe para quando ele for sumir */
+.toast-saindo {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.4s ease;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    width: 100%; /* Garante que o input ocupe o espaço todo */
+    padding-right: 40px; /* Abre espaço para o ícone não cobrir o texto */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+    opacity: 0.6;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+/* Estilo do Balão Verde de Sucesso */
+.toast-sucesso {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: rgba(40, 167, 69, 0.95); /* Verde sucesso */
+    color: #fff;
+    padding: 16px 28px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+    border-left: 6px solid #1e7e34;
+    font-family: sans-serif;
+    font-weight: 600;
+    z-index: 9999;
+    animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Reutiliza a animação de saída que já criamos para o erro */
+.toast-saindo {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.4s ease;
+}
