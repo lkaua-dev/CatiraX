@@ -56,7 +56,7 @@ form.addEventListener("submit", (evento) => {
             // SUCESSO!
             mostrarSucesso("Login realizado! Entrando...");
             
-            // TRUQUE DE MESTRE: Salva o usuário no navegador para usar na próxima página
+            // Salva o usuário no navegador para usar na próxima página
             localStorage.setItem("usuarioLogado", JSON.stringify(resultado.user));
 
             // Espera 1.5s para o usuário ver a mensagem e REDIRECIONA
