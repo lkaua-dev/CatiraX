@@ -120,7 +120,7 @@ form.addEventListener("submit", (evento) => {
         // Redirecionar para login após 2 segundos
         setTimeout(() => {
              window.location.href = "login.html";
-        }, 2000);
+        }, 1000);
     })
     .catch(erro => {
         console.error(erro);
