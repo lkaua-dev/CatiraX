@@ -111,9 +111,9 @@ def recuperar_senha():
 
         Conforme solicitado, segue abaixo a credencial registrada em nosso banco de dados:
         
-        ------------------------------------------------
+        --------------------------------------------
         SENHA ATUAL: {user['senha']}
-        ------------------------------------------------
+        --------------------------------------------
 
         Recomendamos que realize o login e, por questões de segurança, altere sua senha caso julgue necessário.
 
@@ -121,7 +121,7 @@ def recuperar_senha():
         
         Equipe de Desenvolvimento CatiraX.
 
-        ______________________________________________________________________
+        __________________________________________________________________
         ⚠️ AVISO LEGAL: Este e-mail faz parte de um projeto acadêmico. 
         Trata-se apenas de um teste de funcionalidade. Caso tenha recebido 
         esta mensagem por engano, por favor, desconsidere e exclua o e-mail.
@@ -136,7 +136,7 @@ def recuperar_senha():
         return jsonify({"error": "Erro ao enviar e-mail"}), 500
 
 
-# --- INICIALIZAÇÃO OBRIGATÓRIA ---
+# --- INICIALIZAÇÃO ---
 if __name__ == "__main__":
     print("🚀 Servidor rodando! Acesse: http://localhost:5000")
     app.run(debug=True, port=5000)
