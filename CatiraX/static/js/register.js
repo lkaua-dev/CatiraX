@@ -117,7 +117,7 @@ form.addEventListener("submit", (evento) => {
         mostrarSucesso("Cadastro salvo com sucesso! 🎉");
         form.reset();
         
-        // Opcional: Redirecionar para login após 2 segundos
+        // Redirecionar para login após 2 segundos
         setTimeout(() => {
              window.location.href = "login.html";
         }, 2000);
