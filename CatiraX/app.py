@@ -105,27 +105,30 @@ def recuperar_senha():
         )
 
         msg.body = f"""
-        Prezado(a) {user['nome_completo']},
+Prezado(a) {user['nome_completo']},
 
-        Recebemos uma solicitação de recuperação de senha para a sua conta no sistema CATIRAX.
+Recebemos uma solicitação de recuperação de senha para a sua conta no sistema CATIRAX.
 
-        Conforme solicitado, segue abaixo a credencial registrada em nosso banco de dados:
+Conforme solicitado, segue abaixo a credencial registrada em nosso banco de dados:
         
-        --------------------------------------------
-        SENHA ATUAL: {user['senha']}
-        --------------------------------------------
+------------------------------------------
 
-        Recomendamos que realize o login e, por questões de segurança, altere sua senha caso julgue necessário.
+SENHA ATUAL: {user['senha']}
 
-        Atenciosamente,
+------------------------------------------
+
+Recomendamos que realize o login e, por questões de segurança, altere sua senha caso julgue necessário.
+
+Atenciosamente,
         
-        Equipe de Desenvolvimento CatiraX.
+Equipe de Desenvolvimento CatiraX.
 
-        __________________________________________________________________
-        ⚠️ AVISO LEGAL: Este e-mail faz parte de um projeto acadêmico. 
-        Trata-se apenas de um teste de funcionalidade. Caso tenha recebido 
-        esta mensagem por engano, por favor, desconsidere e exclua o e-mail.
-        """
+_____________________________________
+
+⚠️ AVISO LEGAL: Este e-mail faz parte de um projeto acadêmico. 
+Trata-se apenas de um teste de funcionalidade. Caso tenha recebido 
+esta mensagem por engano, por favor, desconsidere e exclua o e-mail.
+"""
 
         mail.send(msg)
 
