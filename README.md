@@ -90,3 +90,16 @@ cd CatiraX
 python app.py
 ```
 ### 3. Você verá a mensagem: Running on http://127.0.0.1:5000.
+---
+<br>
+<br>
+<div align="center">
+
+⚠️ **AVISO IMPORTANTE**  
+🚫 **ACESSO EXTERNO NÃO SUPORTADO EM REDES PRIVADAS**
+
+
+</div>
+</br>
+
+---
