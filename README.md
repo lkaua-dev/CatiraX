@@ -96,7 +96,7 @@ python app.py
 <div align="center">
 
 ⚠️ **AVISO IMPORTANTE**  
-🚫 **ACESSO EXTERNO NÃO SUPORTADO EM REDES PRIVADAS**
+🚫 **ACESSO EXTERNO NÃO SUPORTADO EM REDES PRIVADAS** 🚫
 
 
 </div>
