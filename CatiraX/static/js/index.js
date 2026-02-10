@@ -4,7 +4,6 @@ const welcomeMsg = document.getElementById("welcomeMsg");
 const btnLogout = document.getElementById("btnLogout");
 
 if (!usuarioLogado) {
-    // Se não tiver ninguém logado, chuta pro login
     alert("Você precisa fazer login!");
     window.location.href = "login.html";
 } else {
@@ -15,9 +14,7 @@ if (!usuarioLogado) {
 
 // 2. Função de Logout
 btnLogout.addEventListener("click", () => {
-    // Apaga os dados do navegador
     localStorage.removeItem("usuarioLogado");
-    // Manda pro login
     window.location.href = "login.html";
 });
 
@@ -29,8 +26,7 @@ function toggleLike(elemento) {
     // Se já estiver vermelho (curtido)
     if (icone.style.color === "red") {
         icone.style.color = "white";
-        // Diminui 1 no contador (conversão pra número)
-        // Lógica simples visual
+
     } else {
         icone.style.color = "red";
         icone.style.transform = "scale(1.2)";
