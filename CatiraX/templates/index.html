@@ -3,23 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DHomePage</title>
+    <title>Feed - CatiraX</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
-    <h1>Teste homePage</h1>
+<body class="feed-body">
+
+    <div class="header-top">
+        <h3 id="welcomeMsg" style="text-shadow: 1px 1px 2px black; font-weight: bold;">CatiraX</h3>
+        
+        <div class="header-buttons">
+            <a href="#" class="header-btn btn-anunciar">
+                <i class='bx bxs-camera-plus'></i> Anunciar
+            </a>
+
+            <button id="btnLogout" class="header-btn btn-sair">
+                <i class='bx bx-log-out'></i> Sair
+            </button>
+        </div>
+    </div>
+
+    <div class="feed-container">
+
+        <div class="product-card" style="background-image: url('../static/img/iphone.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>iPhone 15 Pro Max</h2>
+                <span class="product-price">R$ 6.500,00</span>
+                <p class="product-desc">Aparelho impecável, Titânio Natural. Saúde da bateria 100%. Aceito trocas.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Vendedor">
+                    <i class='bx bxs-plus-circle follow-icon'></i>
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>234</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span>12</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" style="background-image: url('../static/img/nike.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>Nike Jordan High</h2>
+                <span class="product-price">R$ 850,00</span>
+                <p class="product-desc">Tênis original, caixa inclusa. Tamanho 41. Usado poucas vezes em quadra.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100" alt="Vendedor">
+                    <i class='bx bxs-plus-circle follow-icon'></i>
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>1.5k</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span>89</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" style="background-image: url('../static/img/pcgamer.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>Setup Gamer Completo</h2>
+                <span class="product-price">R$ 5.200,00</span>
+                <p class="product-desc">PC, Monitor, Teclado e Mouse. Configuração top para rodar GTA RP e Valorant.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" alt="Vendedor">
+                    <i class='bx bxs-plus-circle follow-icon'></i>
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>856</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span>42</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" style="background-image: url('../static/img/moto.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>Harley Davidson 883</h2>
+                <span class="product-price">R$ 45.000,00</span>
+                <p class="product-desc">Ano 2020. Apenas 10mil km rodados. Documentação em dia, só transferir.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Vendedor">
+                    <i class='bx bxs-plus-circle follow-icon'></i>
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>340</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span>55</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../static/js/index.js"></script>
 </body>
-
-<script>
-    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
-
-    if (!usuario) {
-        alert("Você precisa fazer login!");
-        window.location.href = "login.html";
-    } else {
-        console.log("Usuário logado:", usuario.nome_completo);
-    }
-</script>
-
 </html>
-
-
