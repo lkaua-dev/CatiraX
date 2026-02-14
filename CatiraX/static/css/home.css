@@ -1,0 +1,487 @@
+/* --- VARIÁVEIS DE CORES --- */
+:root {
+    --primaria: #0d47a1;
+    --primaria-hover: #f1f8ff;
+    --texto: #334155;
+    --texto-escuro: #0f172a;
+    --fundo: #f8fafc;
+}
+
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+}
+
+/* --- CABEÇALHO --- */
+header {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    height: 80px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--texto-escuro);
+    cursor: pointer;
+}
+
+.logo span {
+    color: var(--primaria);
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--texto);
+    transition: 0.3s;
+}
+
+.nav-link.ativo,
+.nav-link:hover {
+    color: var(--primaria);
+    font-weight: bold;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-entrar {
+    text-decoration: none;
+    color: var(--texto);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-entrar:hover {
+    color: var(--primaria);
+}
+
+.btn-cadastro {
+    text-decoration: none;
+    background: var(--primaria);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-cadastro:hover {
+    background: var(--primaria-hover);
+    color: var(--primaria);
+    /* Muda o texto para escuro já que o fundo de hover é claro */
+}
+
+/* --- CONTEÚDO PRINCIPAL --- */
+main {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Lógica de exibição das abas (páginas) */
+.pagina {
+    display: none;
+}
+
+#home {
+    display: block;
+    /* Garante que o Início seja o primeiro a aparecer */
+}
+
+/* --- CONTAINER LADO A LADO (FLEXBOX) --- */
+/* --- CONTAINER LADO A LADO --- */
+.split-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+    margin: -10px auto 60px auto;
+    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+    background: transparent;
+    border-radius: 12px;
+}
+
+
+/* --- LADO DA IMAGEM --- */
+.split-image {
+    width: 40%;
+    /* espaçamento da imagem*/
+    display: flex;
+    justify-content: center;
+    background: transparent;
+}
+
+
+
+.split-image img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    display: block;
+    background: transparent;
+    background-color: transparent !important;
+}
+
+
+/* --- LADO DO TEXTO --- */
+.split-text {
+    flex: 1.2;
+    text-align: left;
+
+}
+
+.split-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--texto-escuro);
+}
+
+.split-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: var(--texto);
+}
+
+/* --- ELEMENTOS EXTRAS (Badge e Botões) --- */
+.ano {
+    display: inline-block;
+    background: #659ae9;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.btn-acao1 {
+    display: inline-block;
+    background: var(--primaria);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    flex: 0.8;
+}
+
+.btn-acao1:hover {
+    background: var(--primaria-hover);
+    color: var(--primaria);
+    animation-delay: 0.5s;
+}
+
+.btn-voltar {
+    background: transparent;
+    border: none;
+    color: var(--primaria);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-voltar:hover {
+    text-decoration: underline;
+    animation-delay: 0.5s;
+}
+
+/* --- ANIMAÇÕES --- */
+/* A animação roda assim que o elemento for exibido */
+.ano,
+.btn-acao1,
+.split-text h2,
+.split-text p {
+    animation: surgir 0.6s ease forwards;
+}
+
+@keyframes surgir {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- RESPONSIVIDADE (Telas menores) --- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .split-container {
+        flex-direction: column;
+        /* Coloca imagem em cima e texto embaixo */
+        text-align: center;
+        gap: 30px;
+        margin: 20px auto;
+    }
+
+    .split-text {
+        text-align: center;
+        /* Centraliza o texto no mobile */
+    }
+}
+
+/*
+
+
+*/
+
+
+/* --- INVERSÃO DE LADO (ZIG-ZAG) --- */
+.split-reverse {
+    flex-direction: row-reverse;
+}
+
+/* --- TÍTULOS E TEXTOS REFINADOS --- */
+.split-text h2 {
+    font-size: 2.75rem;
+    /* Um pouco maior e mais impactante */
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    /* Deixa a fonte mais unida e moderna */
+    margin-bottom: 20px;
+    color: var(--texto-escuro);
+}
+
+.split-text p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    /* Aumenta o respiro entre as linhas do texto */
+    margin-bottom: 30px;
+    color: var(--texto);
+}
+
+/* --- BADGE PREMIUM (Substitui o .ano) --- */
+.badge {
+    display: inline-block;
+    background: rgba(13, 71, 161, 0.1);
+    /* Fundo azul translúcido */
+    color: var(--primaria);
+    padding: 6px 16px;
+    border-radius: 50px;
+    /* Mais arredondado */
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    /* Letras maiúsculas */
+    letter-spacing: 1px;
+    /* Espaço entre as letras */
+    margin-bottom: 20px;
+}
+
+/* --- SOMBRAS E EFEITO HOVER NA IMAGEM --- */
+.split-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 16px;
+    /* Borda levemente mais redonda */
+    /* Sombra mais difusa e profissional em vez de marcação dura */
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    display: block;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Efeito sutil: a imagem flutua levemente ao passar o mouse */
+.split-container:hover .split-image img {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ESTATÍSTICAS DA EQUIPE (Novo) --- */
+.team-stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #e2e8f0;
+    /* Linha sutil separando o texto */
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 1.8rem;
+    color: var(--primaria);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-item span {
+    font-size: 0.9rem;
+    color: var(--texto);
+    font-weight: 500;
+}
+
+/* --- ATUALIZAÇÃO DA ANIMAÇÃO --- */
+.badge,
+.team-stats,
+.btn-acao1,
+.split-text h2,
+.split-text p,
+.btn-voltar {
+    opacity: 0;
+    animation: surgir 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Curva de animação mais suave (efeito Apple) */
+}
+
+/* --- RESPONSIVIDADE ATUALIZADA --- */
+@media (max-width: 768px) {
+    .split-reverse {
+        flex-direction: column;
+        /* Garante que no celular fique um em cima do outro */
+    }
+
+    .team-stats {
+        flex-direction: column;
+        /* Empilha as estatísticas no celular */
+        gap: 15px;
+        align-items: center;
+    }
+}
+
+
+
+
+
+
+
+/**/
+
+
+
+
+/* --- CONTAINER E CABEÇALHO DAS METAS --- */
+.metas-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.metas-header {
+    text-align: center;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Reutilizando o estilo "pílula" para manter o padrão */
+.tag-visao {
+    background-color: #e0e7ff;
+    color: #4f46e5;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metas-header h2 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin: 0;
+}
+
+.metas-header p {
+    font-size: 1.1rem;
+    color: #4b5563;
+    max-width: 700px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- GRID DE CARTÕES (Design Inteligente) --- */
+.metas-grid {
+    display: grid;
+    /* Isso faz a mágica: cria colunas automáticas que nunca ficam menores que 300px */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- VISUAL DE CADA CARTÃO --- */
+.meta-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    border: 1px solid #f3f4f6; /* Borda bem sutil para dar acabamento */
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.04); /* Sombra elegante e difusa */
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Efeito Hover profissional (levanta o cartão e acende a sombra) */
+.meta-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 4px 12px 24px rgba(79, 70, 229, 0.12);
+    border-color: #e0e7ff;
+}
+
+.meta-icone {
+    font-size: 2rem;
+    background: #e0e7ff; /* Fundo azul claro combinando com a marca */
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px; /* Mantém a identidade visual das bordas */
+    margin-bottom: 10px;
+}
+
+.meta-card h3 {
+    font-size: 1.4rem;
+    color: #1f2937;
+    margin: 0;
+}
+
+.meta-card p {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin: 0;
+}
