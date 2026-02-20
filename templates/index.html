@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed - CatiraX</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+
+<body class="feed-body">
+
+    <div class="feed-container">
+
+        <div class="header-top">
+            <h3 id="welcomeMsg" style="text-shadow: 1px 1px 2px black; font-weight: bold;">CatiraX</h3>
+            <div class="header-buttons">
+                <a href="#" class="header-btn btn-anunciar">
+                    <i class='bx bxs-camera-plus'></i> Anunciar
+                </a>
+                <button id="btnLogout" class="header-btn btn-sair">
+                    <i class='bx bx-log-out'></i> Sair
+                </button>
+            </div>
+        </div>
+
+        <div class="product-card" style="background-image: url('../static/img/iphone.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>iPhone 15 Pro Max</h2>
+                <span class="product-price">R$ 6.500,00</span>
+                <p class="product-desc">Aparelho impecável, Titânio Natural. Saúde da bateria 100%. Aceito trocas.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Vendedor">
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>234</span>
+                </div>
+                <div class="action-btn" onclick="openComments('iPhone 15 Pro Max')">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span class="comment-count">12</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" style="background-image: url('../static/img/nike.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>Nike Jordan High</h2>
+                <span class="product-price">R$ 850,00</span>
+                <p class="product-desc">Tênis original, caixa inclusa. Tamanho 41. Usado poucas vezes em quadra.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100" alt="Vendedor">
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>1.5k</span>
+                </div>
+                <div class="action-btn" onclick="openComments('Nike Jordan High')">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span class="comment-count">89</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" style="background-image: url('../static/img/pcgamer.png');">
+            <div class="overlay-gradient"></div>
+            <div class="product-info">
+                <h2>Setup Gamer Completo</h2>
+                <span class="product-price">R$ 5.200,00</span>
+                <p class="product-desc">PC, Monitor, Teclado e Mouse. Configuração top para rodar GTA RP e Valorant.</p>
+            </div>
+            <div class="actions-sidebar">
+                <div class="action-btn seller-profile">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" alt="Vendedor">
+                </div>
+                <div class="action-btn" onclick="toggleLike(this)">
+                    <i class='bx bxs-heart'></i>
+                    <span>856</span>
+                </div>
+                <div class="action-btn" onclick="openComments('Setup Gamer')">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span class="comment-count">42</span>
+                </div>
+                <div class="action-btn">
+                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
+                    <span>Negociar</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeComments()"></div>
+    <div class="comments-sheet" id="commentsSheet">
+        <div class="sheet-header">
+            <span id="commentProductTitle">Comentários</span>
+            <span class="close-btn" onclick="closeComments()">&times;</span>
+        </div>
+
+        <div class="comments-list" id="commentsList">
+            <div class="comment-item">
+                <div class="comment-avatar">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="User">
+                </div>
+                <div class="comment-content">
+                    <h4>João Silva</h4>
+                    <p>Aceita troca num PS4 + volta?</p>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-avatar">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="User">
+                </div>
+                <div class="comment-content">
+                    <h4>Maria Oliveira</h4>
+                    <p>Ainda está disponível?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-input-area">
+            <input type="text" id="newCommentInput" placeholder="Adicione um comentário...">
+            <button onclick="postComment()"><i class='bx bxs-send'></i></button>
+        </div>
+    </div>
+
+    <script src="../static/js/index.js"></script>
+</body>
+
+</html>

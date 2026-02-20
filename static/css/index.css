@@ -1,0 +1,271 @@
+/* =========================================
+    RESET LOCAL
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =========================================
+    LAYOUT DO FEED (FUNDO PRETO)
+   ========================================= */
+body {
+    background-color: #000000;
+    background-image: none;    
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Container Central (O "Celular") */
+.feed-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    background-color: #000; 
+    position: relative;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    
+    /* Scroll Magnético */
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+.feed-container::-webkit-scrollbar { display: none; }
+
+/* =========================================
+    COMPONENTES DO CARD
+   ========================================= */
+.product-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.overlay-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+    pointer-events: none;
+}
+
+/* Header Flutuante */
+.header-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.header-top h3 {
+    text-shadow: 1px 1px 3px rgba(0,0,0,1);
+    pointer-events: auto;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.header-btn {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+}
+
+.header-btn:hover { background: rgba(50, 50, 50, 0.6); }
+
+/* Sidebar Lateral */
+.actions-sidebar {
+    position: absolute;
+    right: 15px;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 60;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+.action-btn:active { transform: scale(0.9); }
+
+.action-btn i {
+    font-size: 32px;
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    margin-bottom: 4px;
+}
+
+.action-btn span { font-size: 11px; font-weight: 600; text-shadow: 1px 1px 2px black;}
+
+.seller-profile img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+}
+
+/* Info do Produto */
+.product-info {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    z-index: 40;
+    max-width: 75%;
+}
+
+.product-info h2 { font-size: 1.4rem; margin-bottom: 5px; text-shadow: 1px 1px 2px black; }
+.product-price { font-size: 1.6rem; font-weight: bold; color: #4CAF50; margin-bottom: 8px; text-shadow: 1px 1px 2px black; }
+.product-desc { font-size: 0.95rem; color: #e0e0e0; text-shadow: 1px 1px 2px black; }
+
+/* =========================================
+    GAVETA DE COMENTÁRIOS (Sheet)
+   ========================================= */
+.comments-sheet {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 450px;
+    height: 70vh;
+    background-color: #1e1e1e;
+    border-radius: 20px 20px 0 0;
+    z-index: 1000;
+    transition: bottom 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.comments-sheet.active { bottom: 0; }
+
+.sheet-header {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    font-weight: bold;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.comments-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.comment-avatar img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.comment-content h4 { margin: 0 0 2px 0; font-size: 0.85rem; color: #aaa; }
+.comment-content p { margin: 0; font-size: 0.95rem; line-height: 1.3; }
+
+.comment-input-area {
+    padding: 15px;
+    border-top: 1px solid #333;
+    display: flex;
+    gap: 10px;
+    background-color: #1e1e1e;
+    padding-bottom: 20px;
+}
+
+.comment-input-area input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: none;
+    background: #333;
+    color: white;
+    outline: none;
+}
+
+.comment-input-area button {
+    background: #25D366;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(2px);
+}
+
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
