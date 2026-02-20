@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,100 +11,136 @@
 
 <body class="feed-body">
 
-    <div class="feed-container">
+    <!-- =========================================
+        NOVA NAVBAR SUPERIOR (Fora das imagens)
+        ========================================= -->
+    <nav class="top-navbar">
+        <!-- Logo e Boas vindas -->
+        <div class="nav-left">
+            <h3 class="brand-logo" id="welcomeMsg">CatiraX</h3>
+        </div>
 
-        <div class="header-top">
-            <h3 id="welcomeMsg" style="text-shadow: 1px 1px 2px black; font-weight: bold;">CatiraX</h3>
-            <div class="header-buttons">
-                <a href="#" class="header-btn btn-anunciar">
-                    <i class='bx bxs-camera-plus'></i> Anunciar
-                </a>
-                <button id="btnLogout" class="header-btn btn-sair">
-                    <i class='bx bx-log-out'></i> Sair
+        <!-- Barra de Pesquisa -->
+        <div class="nav-center">
+            <div class="search-bar">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Buscar produtos, marcas...">
+            </div>
+        </div>
+
+        <!-- Botões de Ação e Perfil -->
+        <div class="nav-right">
+            <a href="#" class="btn-anunciar">
+                <i class='bx bxs-camera-plus'></i> <span class="hide-mobile">Anunciar</span>
+            </a>
+
+            <div class="user-menu">
+                <img src="[https://ui-avatars.com/api/?name=U&background=1976d2&color=fff](https://ui-avatars.com/api/?name=U&background=1976d2&color=fff)"
+                    alt="Perfil" id="userAvatar" class="profile-img">
+                <button id="btnLogout" class="btn-sair" title="Sair da Conta">
+                    <i class='bx bx-log-out'></i>
                 </button>
             </div>
         </div>
+    </nav>
 
-        <div class="product-card" style="background-image: url('../static/img/iphone.png');">
-            <div class="overlay-gradient"></div>
-            <div class="product-info">
-                <h2>iPhone 15 Pro Max</h2>
-                <span class="product-price">R$ 6.500,00</span>
-                <p class="product-desc">Aparelho impecável, Titânio Natural. Saúde da bateria 100%. Aceito trocas.</p>
+    <!-- =========================================
+        CONTEÚDO DO FEED (Scroll Magnético)
+        ========================================= -->
+    <div class="feed-wrapper">
+        <div class="feed-container">
+
+            <!-- Produto 1 -->
+            <div class="product-card"
+                style="background-image: url('../static/img/iphone.png'); background-color: #1a1a1a;">
+                <div class="overlay-gradient"></div>
+                <div class="product-info">
+                    <h2>iPhone 15 Pro Max</h2>
+                    <span class="product-price">R$ 6.500,00</span>
+                    <p class="product-desc">Aparelho impecável, Titânio Natural. Saúde da bateria 100%. Aceito trocas.
+                    </p>
+                </div>
+                <div class="actions-sidebar">
+                    <div class="action-btn seller-profile">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Vendedor">
+                    </div>
+                    <div class="action-btn" onclick="toggleLike(this)">
+                        <i class='bx bx-heart'></i>
+                        <span>234</span>
+                    </div>
+                    <div class="action-btn" onclick="openComments('iPhone 15 Pro Max')">
+                        <i class='bx bxs-message-rounded-dots'></i>
+                        <span class="comment-count">12</span>
+                    </div>
+                    <div class="action-btn whatsapp-btn">
+                        <i class='bx bxl-whatsapp'></i>
+                        <span>Negociar</span>
+                    </div>
+                </div>
             </div>
-            <div class="actions-sidebar">
-                <div class="action-btn seller-profile">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Vendedor">
+
+            <!-- Produto 2 -->
+            <div class="product-card" style="background-image: url('../static/img/nike.png'); background-color: #222;">
+                <div class="overlay-gradient"></div>
+                <div class="product-info">
+                    <h2>Nike Jordan High</h2>
+                    <span class="product-price">R$ 850,00</span>
+                    <p class="product-desc">Tênis original, caixa inclusa. Tamanho 41. Usado poucas vezes em quadra.</p>
                 </div>
-                <div class="action-btn" onclick="toggleLike(this)">
-                    <i class='bx bxs-heart'></i>
-                    <span>234</span>
-                </div>
-                <div class="action-btn" onclick="openComments('iPhone 15 Pro Max')">
-                    <i class='bx bxs-message-rounded-dots'></i>
-                    <span class="comment-count">12</span>
-                </div>
-                <div class="action-btn">
-                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
-                    <span>Negociar</span>
+                <div class="actions-sidebar">
+                    <div class="action-btn seller-profile">
+                        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100" alt="Vendedor">
+                    </div>
+                    <div class="action-btn" onclick="toggleLike(this)">
+                        <i class='bx bx-heart'></i>
+                        <span>1.5k</span>
+                    </div>
+                    <div class="action-btn" onclick="openComments('Nike Jordan High')">
+                        <i class='bx bxs-message-rounded-dots'></i>
+                        <span class="comment-count">89</span>
+                    </div>
+                    <div class="action-btn whatsapp-btn">
+                        <i class='bx bxl-whatsapp'></i>
+                        <span>Negociar</span>
+                    </div>
                 </div>
             </div>
+
+            <!-- Produto 3 -->
+            <div class="product-card"
+                style="background-image: url('../static/img/pcgamer.png'); background-color: #111;">
+                <div class="overlay-gradient"></div>
+                <div class="product-info">
+                    <h2>Setup Gamer Completo</h2>
+                    <span class="product-price">R$ 5.200,00</span>
+                    <p class="product-desc">PC, Monitor, Teclado e Mouse. Configuração top para rodar GTA RP e Valorant.
+                    </p>
+                </div>
+                <div class="actions-sidebar">
+                    <div class="action-btn seller-profile">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" alt="Vendedor">
+                    </div>
+                    <div class="action-btn" onclick="toggleLike(this)">
+                        <i class='bx bx-heart'></i>
+                        <span>856</span>
+                    </div>
+                    <div class="action-btn" onclick="openComments('Setup Gamer')">
+                        <i class='bx bxs-message-rounded-dots'></i>
+                        <span class="comment-count">42</span>
+                    </div>
+                    <div class="action-btn whatsapp-btn">
+                        <i class='bx bxl-whatsapp'></i>
+                        <span>Negociar</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="product-card" style="background-image: url('../static/img/nike.png');">
-            <div class="overlay-gradient"></div>
-            <div class="product-info">
-                <h2>Nike Jordan High</h2>
-                <span class="product-price">R$ 850,00</span>
-                <p class="product-desc">Tênis original, caixa inclusa. Tamanho 41. Usado poucas vezes em quadra.</p>
-            </div>
-            <div class="actions-sidebar">
-                <div class="action-btn seller-profile">
-                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100" alt="Vendedor">
-                </div>
-                <div class="action-btn" onclick="toggleLike(this)">
-                    <i class='bx bxs-heart'></i>
-                    <span>1.5k</span>
-                </div>
-                <div class="action-btn" onclick="openComments('Nike Jordan High')">
-                    <i class='bx bxs-message-rounded-dots'></i>
-                    <span class="comment-count">89</span>
-                </div>
-                <div class="action-btn">
-                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
-                    <span>Negociar</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card" style="background-image: url('../static/img/pcgamer.png');">
-            <div class="overlay-gradient"></div>
-            <div class="product-info">
-                <h2>Setup Gamer Completo</h2>
-                <span class="product-price">R$ 5.200,00</span>
-                <p class="product-desc">PC, Monitor, Teclado e Mouse. Configuração top para rodar GTA RP e Valorant.</p>
-            </div>
-            <div class="actions-sidebar">
-                <div class="action-btn seller-profile">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" alt="Vendedor">
-                </div>
-                <div class="action-btn" onclick="toggleLike(this)">
-                    <i class='bx bxs-heart'></i>
-                    <span>856</span>
-                </div>
-                <div class="action-btn" onclick="openComments('Setup Gamer')">
-                    <i class='bx bxs-message-rounded-dots'></i>
-                    <span class="comment-count">42</span>
-                </div>
-                <div class="action-btn">
-                    <i class='bx bxl-whatsapp' style="color: #25D366;"></i>
-                    <span>Negociar</span>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <!-- =========================================
+        MODAL DE COMENTÁRIOS (Sheet)
+        ========================================= -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeComments()"></div>
     <div class="comments-sheet" id="commentsSheet">
         <div class="sheet-header">
@@ -137,6 +174,7 @@
             <button onclick="postComment()"><i class='bx bxs-send'></i></button>
         </div>
     </div>
+
 
     <script src="/CatriaX/static/js/index.js"></script>
 </body>

@@ -1,5 +1,5 @@
 /* =========================================
-    RESET GLOBAL E FONTES
+   RESET GLOBAL E FONTES
    ========================================= */
 * {
     margin: 0;
@@ -13,9 +13,10 @@ a {
 }
 
 /* =========================================
-    NOTIFICAÇÕES / TOASTS (Compartilhado)
+   NOTIFICAÇÕES / TOASTS (Compartilhado)
    ========================================= */
-.toast-erro, .toast-sucesso {
+.toast-erro,
+.toast-sucesso {
     position: fixed;
     top: 25px;
     right: 25px;
@@ -24,44 +25,126 @@ a {
     border-radius: 12px;
     font-weight: 600;
     z-index: 9999;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    gap: 10px;
-    animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    gap: 12px;
+    animation: slideInToast 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 .toast-erro {
-    background: rgba(255, 77, 77, 0.95);
-    border-left: 6px solid #b30000;
+    background: linear-gradient(135deg, #d32f2f, #b30000);
+    border-left: 6px solid #8e0000;
 }
 
 .toast-sucesso {
-    background: rgba(40, 167, 69, 0.95);
-    border-left: 6px solid #1e7e34;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    border-left: 6px solid #144d18;
 }
 
 .toast-saindo {
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.4s ease;
+    animation: slideOutToast 0.4s ease forwards;
 }
 
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+@keyframes slideInToast {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToast {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
 }
 
 /* =========================================
-    LAYOUT DE AUTENTICAÇÃO (LOGIN - FUNDO AZUL)
+   LAYOUT DE AUTENTICAÇÃO E FUNDO ANIMADO
    ========================================= */
 body {
-    /* Define o fundo azul APENAS aqui */
-    background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);
+    /* Fundo gradiente animado mantendo a paleta azul */
+    background: linear-gradient(-45deg, #e3f2fd, #90caf9, #bbdefb, #64b5f6);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Formas flutuantes no fundo para dar mais vida */
+.bg-shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 0;
+    animation: float 10s infinite ease-in-out;
+}
+
+.shape1 {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.shape2 {
+    width: 400px;
+    height: 400px;
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -3s;
+    background: rgba(21, 101, 192, 0.15);
+}
+
+.shape3 {
+    width: 200px;
+    height: 200px;
+    bottom: 50%;
+    left: 20%;
+    animation-delay: -6s;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
 }
 
 .auth-container {
@@ -69,30 +152,68 @@ body {
     padding: 20px;
     display: flex;
     justify-content: center;
+    z-index: 1;
 }
 
+/* Caixa principal com animação de entrada e hover 3D */
 .auth-box {
-    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     width: 100%;
-    max-width: 400px;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 420px;
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(13, 71, 161, 0.05);
     text-align: center;
+
+    /* Animação de entrada */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.auth-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(13, 71, 161, 0.1);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .auth-box h2 {
     color: #0d47a1;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.auth-box h2::after {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 4px;
+    background: #1976d2;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 /* =========================================
-    FORMULÁRIOS E BOTÕES
+   FORMULÁRIOS E BOTÕES
    ========================================= */
 .input-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     text-align: left;
+    position: relative;
 }
 
 .input-group label {
@@ -100,64 +221,128 @@ body {
     margin-bottom: 0.5rem;
     color: #1565c0;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
-.input-container {
+.input-wrapper {
     position: relative;
     display: flex;
     align-items: center;
 }
 
+.input-wrapper svg {
+    position: absolute;
+    left: 14px;
+    width: 20px;
+    height: 20px;
+    color: #90caf9;
+    transition: color 0.3s ease;
+}
+
 .input-group input {
     width: 100%;
-    padding: 12px;
+    padding: 14px 14px 14px 45px;
+    /* Espaço para o ícone */
     border: 2px solid #e3f2fd;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
     outline: none;
+    background-color: #fbfdff;
     transition: all 0.3s ease;
+    color: #333;
 }
 
+/* Efeitos de foco nos inputs */
 .input-group input:focus {
     border-color: #1976d2;
-    background-color: #f1f8ff;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1);
 }
 
-.toggle-password {
-    position: absolute;
-    right: 12px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #888;
+.input-group input:focus+svg,
+.input-group input:not(:placeholder-shown)+svg {
+    color: #1976d2;
 }
 
+/* Botão Entrar */
 .btn-auth {
     width: 100%;
-    padding: 12px;
-    background-color: #0d47a1;
+    padding: 14px;
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
     margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    transition: background-color 0.3s;
+    margin-bottom: 1.8rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(13, 71, 161, 0.3);
+}
+
+.btn-auth::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .btn-auth:hover {
-    background-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4);
+}
+
+.btn-auth:hover::before {
+    left: 100%;
+}
+
+.btn-auth:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(13, 71, 161, 0.3);
+}
+
+/* Links */
+.auth-links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .auth-box a {
     color: #1976d2;
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: inline-block;
+    align-self: center;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Animação de sublinhado nos links */
+.auth-box a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: #0d47a1;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
 .auth-box a:hover {
-    text-decoration: underline;
+    color: #0d47a1;
+}
+
+.auth-box a:hover::after {
+    width: 100%;
 }

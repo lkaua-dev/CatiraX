@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // 1. Em vez de procurar por classes específicas, o JS agora procura 
     // QUALQUER elemento que tenha o atributo 'data-target'.
     // Isso faz o Logo, Menu, btn-acao1 e btn-voltar funcionarem automaticamente.
     const gatilhos = document.querySelectorAll('[data-target]');
-    
+
     // 2. Seleciona todas as sections diretamente de dentro da tag main
     const secoes = document.querySelectorAll('main > section');
-    
+
     const linksMenu = document.querySelectorAll('.nav-link');
 
     gatilhos.forEach(botao => {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Força a animação a rodar na tela 'home' logo que o site carrega
     const telaInicial = document.getElementById('home');
-    if(telaInicial) {
+    if (telaInicial) {
         telaInicial.classList.add('animando');
     }
 });

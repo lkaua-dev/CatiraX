@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,25 +9,49 @@
 </head>
 
 <body>
+    <!-- Formas de fundo animadas -->
+    <div class="bg-shape shape1"></div>
+    <div class="bg-shape shape2"></div>
+    <div class="bg-shape shape3"></div>
+
     <div class="auth-container">
         <div class="auth-box">
             <h2>Bem-vindo!</h2>
             <form id="formLogin" novalidate>
                 <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="email" placeholder="seu@email.com" required />
+                    <label for="email">Email</label>
+                    <div class="input-wrapper">
+                        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <input type="email" id="email" placeholder="seu@email.com" required />
+                    </div>
                 </div>
+
                 <div class="input-group">
-                    <label>Senha</label>
-                    <input type="password" id="senha" placeholder="Senha" required />
+                    <label for="senha">Senha</label>
+                    <div class="input-wrapper">
+                        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        <input type="password" id="senha" placeholder="Sua senha secreta" required />
+                    </div>
                 </div>
-                <button type="submit" class="btn-auth">Entrar</button>
+
+                <button type="submit" class="btn-auth" id="btnSubmit">Entrar</button>
             </form>
 
-            <a href="recover.html">Esqueci a senha</a><br />
-            <a href="register.html">Criar nova conta</a><br />
+            <div class="auth-links-container">
+                <a href="recover.html">Esqueci minha senha</a>
+                <a href="register.html">Não tem uma conta? Cadastre-se</a>
+            </div>
         </div>
     </div>
+
     <script src="../static/js/login.js"></script>
 </body>
 

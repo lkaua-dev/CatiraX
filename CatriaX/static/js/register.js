@@ -1,12 +1,13 @@
-const name = document.querySelector("#nomeCompleto");
-const cpf = document.querySelector("#cpf");
-const email = document.querySelector("#email");
-const senha = document.getElementById('senha');
-const confirmSenha = document.getElementById('confirmSenha');
+const nameInput = document.querySelector("#nomeCompleto");
+const cpfInput = document.querySelector("#cpf");
+const emailInput = document.querySelector("#email");
+const senhaInput = document.getElementById('senha');
+const confirmSenhaInput = document.getElementById('confirmSenha');
 const form = document.querySelector("#formCadastro");
+const btnSubmit = document.querySelector("#BotaoDeEnviar");
 
 // 1. Máscara de CPF
-cpf.addEventListener("input", (e) => {
+cpfInput.addEventListener("input", (e) => {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
     v = v.replace(/(\d{3})(\d)/, '$1.$2');
     v = v.replace(/(\d{3})(\d)/, '$1.$2');
@@ -14,8 +15,11 @@ cpf.addEventListener("input", (e) => {
     e.target.value = v;
 });
 
-// 2. Função para o Balão de ERRO (Vermelho)
-function mostrarErro(mensagem) {
+// 2. Função para o Balão de ERRO (Vermelho) - Atualizada para não empilhar
+function mostrarErro(mensagem, inputsErro = []) {
+    const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
+    if (toastAntigo) toastAntigo.remove();
+
     const toast = document.createElement("div");
     toast.className = "toast-erro";
     toast.innerHTML = `<span>⚠️ ${mensagem}</span>`;
@@ -25,13 +29,24 @@ function mostrarErro(mensagem) {
         toast.classList.add("toast-saindo");
         setTimeout(() => toast.remove(), 400);
     }, 3000);
+
+    // Adiciona borda vermelha nos inputs que deram erro
+    inputsErro.forEach(input => {
+        if (input) {
+            input.style.borderColor = '#ff4d4d';
+            setTimeout(() => input.style.borderColor = '', 2000);
+        }
+    });
 }
 
 // 3. Função para o Balão de SUCESSO (Verde)
 function mostrarSucesso(mensagem) {
+    const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
+    if (toastAntigo) toastAntigo.remove();
+
     const toast = document.createElement("div");
     toast.className = "toast-sucesso";
-    toast.innerHTML = `<span>✅ ${mensagem}</span>`;
+    toast.innerHTML = `<span>🎉 ${mensagem}</span>`;
     document.body.appendChild(toast);
 
     setTimeout(() => {
@@ -40,7 +55,7 @@ function mostrarSucesso(mensagem) {
     }, 3000);
 }
 
-// 4. Mostrar/Esconder Senha
+// 4. Mostrar/Esconder Senha (Adaptado para o novo HTML)
 function toggleSenha(id) {
     const input = document.getElementById(id);
     const span = input.nextElementSibling;
@@ -61,70 +76,83 @@ form.addEventListener("submit", (evento) => {
     const maiusculaRegex = /[A-Z]/;
 
     // --- Validações no Front-end ---
-    if (!name.value || !cpf.value || !email.value || !senha.value || !confirmSenha.value) {
-        mostrarErro("Preencha todos os campos!");
+    if (!nameInput.value || !cpfInput.value || !emailInput.value || !senhaInput.value || !confirmSenhaInput.value) {
+        mostrarErro("Preencha todos os campos!", [nameInput, cpfInput, emailInput, senhaInput, confirmSenhaInput].filter(i => !i.value));
         return;
     }
 
-    if (!emailRegex.test(email.value)) {
-        mostrarErro("E-mail com formato inválido!");
+    // Valida CPF tamanho mínimo
+    if (cpfInput.value.length < 14) {
+        mostrarErro("Digite um CPF válido!", [cpfInput]);
         return;
     }
 
-    if (senha.value.length < 8) {
-        mostrarErro("A senha deve ter no mínimo 8 caracteres!");
+    if (!emailRegex.test(emailInput.value)) {
+        mostrarErro("E-mail com formato inválido!", [emailInput]);
         return;
     }
 
-    if (!maiusculaRegex.test(senha.value)) {
-        mostrarErro("A senha precisa de uma letra maiúscula!");
+    if (senhaInput.value.length < 8) {
+        mostrarErro("A senha deve ter no mínimo 8 caracteres!", [senhaInput]);
         return;
     }
 
-    if (senha.value !== confirmSenha.value) {
-        mostrarErro("As senhas não são iguais!");
+    if (!maiusculaRegex.test(senhaInput.value)) {
+        mostrarErro("A senha precisa de uma letra maiúscula!", [senhaInput]);
         return;
     }
+
+    if (senhaInput.value !== confirmSenhaInput.value) {
+        mostrarErro("As senhas não coincidem!", [senhaInput, confirmSenhaInput]);
+        return;
+    }
+
+    // --- Efeito de Carregamento no Botão ---
+    const textoOriginal = btnSubmit.innerHTML;
+    btnSubmit.innerHTML = "Cadastrando...";
+    btnSubmit.style.opacity = "0.7";
+    btnSubmit.style.cursor = "not-allowed";
+    btnSubmit.disabled = true;
 
     // --- Envio para o Servidor Python ---
-    
-    // Prepara os dados
     const dados = {
-        nome: name.value,
-        cpf: cpf.value,
-        email: email.value,
-        senha: senha.value
+        nome: nameInput.value,
+        cpf: cpfInput.value,
+        email: emailInput.value,
+        senha: senhaInput.value
     };
 
-    // Envia para o Flask na porta 5000
     fetch('http://localhost:5000/cadastrar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
     })
-    .then(async res => {
-        const resultado = await res.json();
-        
-        // Se o servidor retornar erro (ex: 500 ou 400)
-        if (!res.ok) {
-            throw new Error(resultado.error || "Erro desconhecido no servidor");
-        }
-        
-        return resultado;
-    })
-    .then(() => {
-        // Sucesso real (Salvo no Banco)
-        mostrarSucesso("Cadastro salvo com sucesso! 🎉");
-        form.reset();
-        
-        // Redirecionar para login após 2 segundos
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 2000);
-    })
-    .catch(erro => {
-        console.error(erro);
-        // Mostra o erro real que veio do Python (ex: "Duplicate entry")
-        mostrarErro(erro.message || "Erro ao conectar com o servidor.");
-    });
+        .then(async res => {
+            const resultado = await res.json();
+
+            if (!res.ok) {
+                throw new Error(resultado.error || "Erro desconhecido no servidor");
+            }
+
+            return resultado;
+        })
+        .then(() => {
+            mostrarSucesso("Cadastro realizado com sucesso!");
+            form.reset();
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        })
+        .catch(erro => {
+            console.error(erro);
+            mostrarErro(erro.message || "Erro ao conectar com o servidor.");
+        })
+        .finally(() => {
+            // Restaura o botão
+            btnSubmit.innerHTML = textoOriginal;
+            btnSubmit.style.opacity = "1";
+            btnSubmit.style.cursor = "pointer";
+            btnSubmit.disabled = false;
+        });
 });
