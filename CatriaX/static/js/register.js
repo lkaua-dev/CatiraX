@@ -1,5 +1,6 @@
 const nameInput = document.querySelector("#nomeCompleto");
 const cpfInput = document.querySelector("#cpf");
+const telefoneInput = document.querySelector("#telefone"); // Novo Campo
 const emailInput = document.querySelector("#email");
 const senhaInput = document.getElementById('senha');
 const confirmSenhaInput = document.getElementById('confirmSenha');
@@ -15,7 +16,21 @@ cpfInput.addEventListener("input", (e) => {
     e.target.value = v;
 });
 
-// 2. Função para o Balão de ERRO (Vermelho) - Atualizada para não empilhar
+// 2. Máscara de Telefone (Ex: (11) 98888-7777)
+telefoneInput.addEventListener("input", (e) => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 2) {
+        v = v.replace(/^(\d{2})(\d)/g, '($1) $2');
+    }
+    if (v.length > 9) {
+        v = v.replace(/(\d{5})(\d)/, '$1-$2'); // Para celular com 9 dígitos
+    } else if (v.length > 8) {
+        v = v.replace(/(\d{4})(\d)/, '$1-$2'); // Para telefone fixo
+    }
+    e.target.value = v;
+});
+
+// 3. Função para o Balão de ERRO (Vermelho)
 function mostrarErro(mensagem, inputsErro = []) {
     const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
     if (toastAntigo) toastAntigo.remove();
@@ -32,14 +47,14 @@ function mostrarErro(mensagem, inputsErro = []) {
 
     // Adiciona borda vermelha nos inputs que deram erro
     inputsErro.forEach(input => {
-        if (input) {
+        if(input) {
             input.style.borderColor = '#ff4d4d';
             setTimeout(() => input.style.borderColor = '', 2000);
         }
     });
 }
 
-// 3. Função para o Balão de SUCESSO (Verde)
+// 4. Função para o Balão de SUCESSO (Verde)
 function mostrarSucesso(mensagem) {
     const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
     if (toastAntigo) toastAntigo.remove();
@@ -55,7 +70,7 @@ function mostrarSucesso(mensagem) {
     }, 3000);
 }
 
-// 4. Mostrar/Esconder Senha (Adaptado para o novo HTML)
+// 5. Mostrar/Esconder Senha
 function toggleSenha(id) {
     const input = document.getElementById(id);
     const span = input.nextElementSibling;
@@ -68,7 +83,7 @@ function toggleSenha(id) {
     }
 }
 
-// 5. Evento de Envio Conectado ao Python (Porta 5000)
+// 6. Evento de Envio Conectado ao Python (Porta 5000)
 form.addEventListener("submit", (evento) => {
     evento.preventDefault();
 
@@ -76,14 +91,18 @@ form.addEventListener("submit", (evento) => {
     const maiusculaRegex = /[A-Z]/;
 
     // --- Validações no Front-end ---
-    if (!nameInput.value || !cpfInput.value || !emailInput.value || !senhaInput.value || !confirmSenhaInput.value) {
-        mostrarErro("Preencha todos os campos!", [nameInput, cpfInput, emailInput, senhaInput, confirmSenhaInput].filter(i => !i.value));
+    if (!nameInput.value || !cpfInput.value || !telefoneInput.value || !emailInput.value || !senhaInput.value || !confirmSenhaInput.value) {
+        mostrarErro("Preencha todos os campos!", [nameInput, cpfInput, telefoneInput, emailInput, senhaInput, confirmSenhaInput].filter(i => !i.value));
         return;
     }
 
-    // Valida CPF tamanho mínimo
     if (cpfInput.value.length < 14) {
         mostrarErro("Digite um CPF válido!", [cpfInput]);
+        return;
+    }
+
+    if (telefoneInput.value.length < 14) {
+        mostrarErro("Digite um telefone válido!", [telefoneInput]);
         return;
     }
 
@@ -118,6 +137,7 @@ form.addEventListener("submit", (evento) => {
     const dados = {
         nome: nameInput.value,
         cpf: cpfInput.value,
+        telefone: telefoneInput.value,
         email: emailInput.value,
         senha: senhaInput.value
     };
@@ -127,32 +147,32 @@ form.addEventListener("submit", (evento) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
     })
-        .then(async res => {
-            const resultado = await res.json();
-
-            if (!res.ok) {
-                throw new Error(resultado.error || "Erro desconhecido no servidor");
-            }
-
-            return resultado;
-        })
-        .then(() => {
-            mostrarSucesso("Cadastro realizado com sucesso!");
-            form.reset();
-
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 2000);
-        })
-        .catch(erro => {
-            console.error(erro);
-            mostrarErro(erro.message || "Erro ao conectar com o servidor.");
-        })
-        .finally(() => {
-            // Restaura o botão
-            btnSubmit.innerHTML = textoOriginal;
-            btnSubmit.style.opacity = "1";
-            btnSubmit.style.cursor = "pointer";
-            btnSubmit.disabled = false;
-        });
+    .then(async res => {
+        const resultado = await res.json();
+        
+        if (!res.ok) {
+            throw new Error(resultado.error || "Erro desconhecido no servidor");
+        }
+        
+        return resultado;
+    })
+    .then(() => {
+        mostrarSucesso("Cadastro realizado com sucesso!");
+        form.reset();
+        
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 2000);
+    })
+    .catch(erro => {
+        console.error(erro);
+        mostrarErro(erro.message || "Erro ao conectar com o servidor.");
+    })
+    .finally(() => {
+        // Restaura o botão
+        btnSubmit.innerHTML = textoOriginal;
+        btnSubmit.style.opacity = "1";
+        btnSubmit.style.cursor = "pointer";
+        btnSubmit.disabled = false;
+    });
 });

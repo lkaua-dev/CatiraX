@@ -33,6 +33,7 @@ def cadastrar():
     data = request.json
     nome = data.get("nome")
     cpf = data.get("cpf")
+    telefone = data.get("telefone")
     email = data.get("email")
     senha = data.get("senha")
 
@@ -40,8 +41,8 @@ def cadastrar():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        sql = "INSERT INTO usuarios (nome_completo, cpf, email, senha) VALUES (%s, %s, %s, %s)"
-        cursor.execute(sql, (nome, cpf, email, senha))
+        sql = "INSERT INTO usuarios (nome_completo, cpf, telefone, email, senha) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql, (nome, cpf, telefone, email, senha))
 
         conn.commit()
         cursor.close()

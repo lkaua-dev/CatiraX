@@ -1,8 +1,10 @@
 /* --- VARIÁVEIS DE CORES --- */
 :root {
     --primaria: #0d47a1;
-    --primaria-hover: #f1f8ff;
-    --texto: #334155;
+    --primaria-gradiente: linear-gradient(135deg, #1565c0, #0d47a1);
+    --primaria-hover: #1e3a8a;
+    --secundaria: #e0e7ff;
+    --texto: #475569;
     --texto-escuro: #0f172a;
     --fundo: #f8fafc;
 }
@@ -12,31 +14,43 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
     background-color: var(--fundo);
     color: var(--texto);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* --- CABEÇALHO --- */
+/* --- CABEÇALHO (Efeito Vidro / Glassmorphism) --- */
 header {
-    background: white;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5%;
-    height: 80px;
-    border-bottom: 1px solid #e2e8f0;
+    height: 85px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 800;
     color: var(--texto-escuro);
     cursor: pointer;
+    letter-spacing: -1px;
+    transition: transform 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
 }
 
 .logo span {
@@ -45,22 +59,43 @@ header {
 
 nav {
     display: flex;
-    gap: 20px;
+    gap: 30px;
 }
 
 .nav-link {
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
     color: var(--texto);
     transition: 0.3s;
+    position: relative;
+}
+
+/* Efeito de sublinhado animado no menu */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -6px;
+    left: 50%;
+    background: var(--primaria-gradiente);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 .nav-link.ativo,
 .nav-link:hover {
     color: var(--primaria);
-    font-weight: bold;
+    font-weight: 600;
+}
+
+.nav-link.ativo::after,
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .auth-buttons {
@@ -71,133 +106,168 @@ nav {
 
 .btn-entrar {
     text-decoration: none;
-    color: var(--texto);
-    font-weight: 500;
+    color: var(--texto-escuro);
+    font-weight: 600;
+    font-size: 15px;
     transition: 0.3s;
+    padding: 8px 15px;
+    border-radius: 8px;
 }
 
 .btn-entrar:hover {
     color: var(--primaria);
+    background-color: var(--secundaria);
 }
 
 .btn-cadastro {
     text-decoration: none;
-    background: var(--primaria);
+    background: var(--primaria-gradiente);
     color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: 0.3s;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
 }
 
 .btn-cadastro:hover {
-    background: var(--primaria-hover);
-    color: var(--primaria);
-    /* Muda o texto para escuro já que o fundo de hover é claro */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 71, 161, 0.35);
 }
 
 /* --- CONTEÚDO PRINCIPAL --- */
 main {
     width: 100%;
-    padding: 20px;
+    padding: 40px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* Lógica de exibição das abas (páginas) */
 .pagina {
     display: none;
+    animation: fadeIn 0.4s ease forwards;
 }
 
 #home {
     display: block;
-    /* Garante que o Início seja o primeiro a aparecer */
 }
 
-/* --- CONTAINER LADO A LADO (FLEXBOX) --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- CONTAINER LADO A LADO --- */
 .split-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 50px;
+    gap: 60px;
     width: 100%;
-    margin: -10px auto 60px auto;
-    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+    margin: 20px auto 60px auto;
     background: transparent;
-    border-radius: 12px;
 }
-
 
 /* --- LADO DA IMAGEM --- */
 .split-image {
-    width: 40%;
-    /* espaçamento da imagem*/
+    width: 45%;
     display: flex;
     justify-content: center;
-    background: transparent;
+    position: relative;
 }
 
-
+/* Efeito de brilho atrás da imagem */
+.split-image::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background: var(--primaria-gradiente);
+    filter: blur(60px);
+    opacity: 0.15;
+    z-index: -1;
+    border-radius: 50%;
+}
 
 .split-image img {
     width: 100%;
-    max-width: 450px;
+    max-width: 550px;
     height: auto;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     display: block;
-    background: transparent;
-    background-color: transparent !important;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.split-container:hover .split-image img {
+    transform: translateY(-10px) scale(1.02);
+}
 
 /* --- LADO DO TEXTO --- */
 .split-text {
-    flex: 1.2;
+    flex: 1;
     text-align: left;
-
 }
 
 .split-text h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 25px;
     color: var(--texto-escuro);
 }
 
 .split-text p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 35px;
     color: var(--texto);
 }
 
 /* --- ELEMENTOS EXTRAS (Badge e Botões) --- */
-.ano {
+.badge {
     display: inline-block;
-    background: #659ae9;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    background: var(--secundaria);
+    color: var(--primaria);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
 }
 
 .btn-acao1 {
-    display: inline-block;
-    background: var(--primaria);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primaria-gradiente);
     color: white;
     border: none;
-    padding: 15px 30px;
-    border-radius: 6px;
+    padding: 16px 35px;
+    border-radius: 30px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
-    flex: 0.8;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(13, 71, 161, 0.25);
 }
 
 .btn-acao1:hover {
-    background: var(--primaria-hover);
-    color: var(--primaria);
-    animation-delay: 0.5s;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(13, 71, 161, 0.35);
+}
+
+.btn-acao1::after {
+    content: '→';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+.btn-acao1:hover::after {
+    transform: translateX(5px);
 }
 
 .btn-voltar {
@@ -205,38 +275,266 @@ main {
     border: none;
     color: var(--primaria);
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
 }
 
 .btn-voltar:hover {
-    text-decoration: underline;
-    animation-delay: 0.5s;
+    color: var(--primaria-hover);
+    transform: translateX(-5px);
 }
 
-/* --- ANIMAÇÕES --- */
-/* A animação roda assim que o elemento for exibido */
-.ano,
-.btn-acao1,
-.split-text h2,
-.split-text p {
-    animation: surgir 0.6s ease forwards;
+/* --- ANIMAÇÕES NAS ABAS --- */
+.animando .badge,
+.animando h2,
+.animando p,
+.animando .btn-acao1,
+.animando .team-stats {
+    opacity: 0;
+    animation: surgir 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+.animando .badge { animation-delay: 0.1s; }
+.animando h2 { animation-delay: 0.2s; }
+.animando p { animation-delay: 0.3s; }
+.animando .btn-acao1 { animation-delay: 0.4s; }
+.animando .team-stats { animation-delay: 0.4s; }
 
 @keyframes surgir {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- RESPONSIVIDADE (Telas menores) --- */
+/* --- INVERSÃO DE LADO (ZIG-ZAG) --- */
+.split-reverse {
+    flex-direction: row-reverse;
+}
+
+/* --- ESTATÍSTICAS DA EQUIPE --- */
+.team-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 2.2rem;
+    color: var(--primaria);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-weight: 800;
+}
+
+.stat-item span {
+    font-size: 0.95rem;
+    color: var(--texto);
+    font-weight: 500;
+}
+
+/* --- METAS E SOLUÇÕES (GRID) --- */
+.metas-header {
+    text-align: center;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.metas-header h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--texto-escuro);
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.metas-header p {
+    font-size: 1.15rem;
+    color: var(--texto);
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.metas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.meta-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.meta-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primaria-gradiente);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.meta-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(13, 71, 161, 0.08);
+    border-color: transparent;
+}
+
+.meta-card:hover::before {
+    opacity: 1;
+}
+
+.meta-icone {
+    font-size: 2.5rem;
+    color: var(--primaria);
+    background: var(--secundaria);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.meta-card:hover .meta-icone {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.meta-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-escuro);
+    margin: 0;
+}
+
+.meta-card p {
+    font-size: 1.05rem;
+    color: var(--texto);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- GRID DA EQUIPE (NOVO E CENTRALIZADO) --- */
+.team-section {
+    margin-top: 80px;
+    width: 100%;
+}
+
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza a última linha perfeitamente */
+    gap: 30px;
+}
+
+.team-member {
+    flex: 1 1 260px;
+    max-width: 280px; /* Impede que fiquem esticados demais */
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(13, 71, 161, 0.08);
+    border-color: #e0e7ff;
+}
+
+.chefe-card {
+    border: 2px solid var(--secundaria);
+}
+
+.member-avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid var(--secundaria);
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover .member-avatar {
+    transform: scale(1.05);
+}
+
+.team-member h4 {
+    color: var(--texto-escuro);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.team-member .role {
+    color: var(--primaria);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    background: var(--secundaria);
+    padding: 6px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.team-member p {
+    font-size: 0.95rem;
+    color: var(--texto);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
+    .split-container, .split-reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .split-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .team-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .split-image { width: 100%; }
+}
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -244,248 +542,6 @@ main {
         padding: 20px;
         gap: 15px;
     }
-
-    .split-container {
-        flex-direction: column;
-        /* Coloca imagem em cima e texto embaixo */
-        text-align: center;
-        gap: 30px;
-        margin: 20px auto;
-    }
-
-    .split-text {
-        text-align: center;
-        /* Centraliza o texto no mobile */
-    }
-}
-
-/*
-
-
-*/
-
-
-/* --- INVERSÃO DE LADO (ZIG-ZAG) --- */
-.split-reverse {
-    flex-direction: row-reverse;
-}
-
-/* --- TÍTULOS E TEXTOS REFINADOS --- */
-.split-text h2 {
-    font-size: 2.75rem;
-    /* Um pouco maior e mais impactante */
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-    /* Deixa a fonte mais unida e moderna */
-    margin-bottom: 20px;
-    color: var(--texto-escuro);
-}
-
-.split-text p {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    /* Aumenta o respiro entre as linhas do texto */
-    margin-bottom: 30px;
-    color: var(--texto);
-}
-
-/* --- BADGE PREMIUM (Substitui o .ano) --- */
-.badge {
-    display: inline-block;
-    background: rgba(13, 71, 161, 0.1);
-    /* Fundo azul translúcido */
-    color: var(--primaria);
-    padding: 6px 16px;
-    border-radius: 50px;
-    /* Mais arredondado */
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    /* Letras maiúsculas */
-    letter-spacing: 1px;
-    /* Espaço entre as letras */
-    margin-bottom: 20px;
-}
-
-/* --- SOMBRAS E EFEITO HOVER NA IMAGEM --- */
-.split-image img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 16px;
-    /* Borda levemente mais redonda */
-    /* Sombra mais difusa e profissional em vez de marcação dura */
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
-    display: block;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-/* Efeito sutil: a imagem flutua levemente ao passar o mouse */
-.split-container:hover .split-image img {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
-}
-
-/* --- ESTATÍSTICAS DA EQUIPE (Novo) --- */
-.team-stats {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-    padding-top: 25px;
-    border-top: 1px solid #e2e8f0;
-    /* Linha sutil separando o texto */
-}
-
-.stat-item strong {
-    display: block;
-    font-size: 1.8rem;
-    color: var(--primaria);
-    line-height: 1;
-    margin-bottom: 5px;
-}
-
-.stat-item span {
-    font-size: 0.9rem;
-    color: var(--texto);
-    font-weight: 500;
-}
-
-/* --- ATUALIZAÇÃO DA ANIMAÇÃO --- */
-.badge,
-.team-stats,
-.btn-acao1,
-.split-text h2,
-.split-text p,
-.btn-voltar {
-    opacity: 0;
-    animation: surgir 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    /* Curva de animação mais suave (efeito Apple) */
-}
-
-/* --- RESPONSIVIDADE ATUALIZADA --- */
-@media (max-width: 768px) {
-    .split-reverse {
-        flex-direction: column;
-        /* Garante que no celular fique um em cima do outro */
-    }
-
-    .team-stats {
-        flex-direction: column;
-        /* Empilha as estatísticas no celular */
-        gap: 15px;
-        align-items: center;
-    }
-}
-
-
-
-
-
-
-
-/**/
-
-
-
-
-/* --- CONTAINER E CABEÇALHO DAS METAS --- */
-.metas-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-.metas-header {
-    text-align: center;
-    margin-bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
-
-/* Reutilizando o estilo "pílula" para manter o padrão */
-.tag-visao {
-    background-color: #e0e7ff;
-    color: #4f46e5;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.metas-header h2 {
-    font-size: 2.5rem;
-    color: #1f2937;
-    margin: 0;
-}
-
-.metas-header p {
-    font-size: 1.1rem;
-    color: #4b5563;
-    max-width: 700px;
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* --- GRID DE CARTÕES (Design Inteligente) --- */
-.metas-grid {
-    display: grid;
-    /* Isso faz a mágica: cria colunas automáticas que nunca ficam menores que 300px */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-}
-
-/* --- VISUAL DE CADA CARTÃO --- */
-.meta-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 40px 30px;
-    border: 1px solid #f3f4f6;
-    /* Borda bem sutil para dar acabamento */
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.04);
-    /* Sombra elegante e difusa */
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Efeito Hover profissional (levanta o cartão e acende a sombra) */
-.meta-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 4px 12px 24px rgba(79, 70, 229, 0.12);
-    border-color: #e0e7ff;
-}
-
-.meta-icone {
-    font-size: 2rem;
-    background: #e0e7ff;
-    /* Fundo azul claro combinando com a marca */
-    width: 65px;
-    height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    /* Mantém a identidade visual das bordas */
-    margin-bottom: 10px;
-}
-
-.meta-card h3 {
-    font-size: 1.4rem;
-    color: #1f2937;
-    margin: 0;
-}
-
-.meta-card p {
-    font-size: 1rem;
-    color: #4b5563;
-    line-height: 1.6;
-    margin: 0;
+    nav { gap: 15px; flex-wrap: wrap; justify-content: center; }
+    .split-text h2 { font-size: 2.2rem; }
 }
