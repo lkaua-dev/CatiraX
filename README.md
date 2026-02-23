@@ -34,27 +34,80 @@ git clone https://github.com/lkaua-dev/CatiraX.git
 ### 2. Configurar o Banco de Dados (MySQL)
 Abra o MySQL Workbench, copie o código SQL abaixo e execute para criar o banco e a tabela:
 ```bash
-CREATE DATABASE IF NOT EXISTS sistema_cadastro;
-USE sistema_cadastro;
+-- 1. CRIAR A BASE DE DADOS
+CREATE DATABASE IF NOT EXISTS RGA_princp 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
 
+USE RGA_princp;
 
-CREATE TABLE IF NOT EXISTS usuarios (
+-- 2. TABELA DE UTILIZADORES (USUARIO)
+CREATE TABLE IF NOT EXISTS usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_completo VARCHAR(255) NOT NULL,
+    celular VARCHAR(20) NOT NULL,      
     cpf VARCHAR(14) NOT NULL UNIQUE, 
     email VARCHAR(150) NOT NULL UNIQUE, 
-    senha VARCHAR(24) NOT NULL,
+    senha VARCHAR(255) NOT NULL,     
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-USE sistema_cadastro;
-SELECT * FROM usuarios;
+-- 3. TABELA DE IMAGENS / PRODUTOS (IMG)
+CREATE TABLE IF NOT EXISTS img (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    valor DECIMAL(15, 2), -- Suporta valores até 99.999.999,99
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Deletar apenas um id
-DELETE FROM usuarios WHERE id = ' ';
+-- 4. TABELA DE FAVORITOS
+CREATE TABLE IF NOT EXISTS favoritos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    img_id INT NOT NULL,
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (usuario_id, img_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (img_id) REFERENCES img(id) ON DELETE CASCADE
+); 
 
--- Deletar a tabela completa
-TRUNCATE TABLE usuarios;
+-- 5. TABELA DE COMENTÁRIOS
+CREATE TABLE IF NOT EXISTS comentarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    img_id INT NOT NULL,
+    mensagem VARCHAR(1500) NOT NULL, 
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (img_id) REFERENCES img(id) ON DELETE CASCADE
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- ======================================================
+-- CONSULTAS ÚTEIS PARA TESTES
+-- ======================================================
+
+-- Ver todos os produtos anunciados
+SELECT * FROM img ORDER BY data_hora DESC;
+
+-- Ver todos os utilizadores
+SELECT * FROM usuario;
+
+-- Ver comentários de um produto específico (substituir o ?)
+-- SELECT 
+--     u.nome_completo AS Autor, 
+--     c.mensagem AS Comentario, 
+--     DATE_FORMAT(c.data_hora, '%d/%m/%Y às %H:%i') AS Data_Formatada
+-- FROM comentarios c
+-- JOIN usuario u ON u.id = c.usuario_id
+-- WHERE c.img_id = ? 
+-- ORDER BY c.data_hora DESC;
+
+-- Limpar tabelas para novos testes (Cuidado!)
+-- TRUNCATE TABLE favoritos;
+-- TRUNCATE TABLE comentarios;
+-- SET FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE img; SET FOREIGN_KEY_CHECKS = 1;
 ```
 ---
 ### 3. Instalar Dependências do Python
