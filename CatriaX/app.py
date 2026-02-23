@@ -24,9 +24,12 @@ mail = Mail(app)
 # ==========================================
 # CONFIGURAÇÃO DA PASTA DE UPLOAD
 # ==========================================
-UPLOAD_FOLDER = os.path.join('CatriaX', 'static', 'uploads')
+import os
 
-# Garante que a pasta exista fisicamente
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+UPLOAD_FOLDER = os.path.join('CatiraX', 'static', 'uploads')
+
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
     print(f"✅ Pasta de uploads verificada/criada em: {UPLOAD_FOLDER}")
@@ -127,7 +130,7 @@ def anunciar():
         file.save(filepath)
 
         # URL RELATIVA PARA O BANCO DE DADOS E HTML
-        url_banco = f"/CatriaX/static/uploads/{unique_name}"
+        url_banco = f"/static/uploads/{unique_name}"
 
         # INSERE PRODUTO NO BANCO
         conn = get_db_connection()
