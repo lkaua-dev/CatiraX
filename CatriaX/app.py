@@ -1,61 +1,80 @@
+import os
+import sys
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_mail import Mail, Message
 import mysql.connector
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
 
-# --- CONFIGURAÇÃO DO E-MAIL (GMAIL) ---
+# ==========================================
+# CONFIGURAÇÃO DO E-MAIL (GMAIL)
+# ==========================================
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = "rga.solucoes0@gmail.com"  # 'seu.email@gmail.com'
-app.config["MAIL_PASSWORD"] = "nxng sadf xcsl ahkz"  # 'sua senha de aplicativo aqui'
+app.config["MAIL_USERNAME"] = "rga.solucoes0@gmail.com"
+app.config["MAIL_PASSWORD"] = "nxng sadf xcsl ahkz"
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
 
 mail = Mail(app)
 
+# ==========================================
+# CONFIGURAÇÃO DA PASTA DE UPLOAD
+# ==========================================
+UPLOAD_FOLDER = os.path.join('CatriaX', 'static', 'uploads')
 
-# --- CONFIGURAÇÃO DO BANCO DE DADOS ---
+# Garante que a pasta exista fisicamente
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+    print(f"✅ Pasta de uploads verificada/criada em: {UPLOAD_FOLDER}")
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# ==========================================
+# CONEXÃO COM O BANCO DE DADOS
+# ==========================================
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
         password="root",
-        database="sistema_cadastro",
+        database="RGA_princp", 
     )
 
-
-# --- ROTA 1: CADASTRO ---
+# ==========================================
+# ROTA 1: CADASTRO DE USUÁRIO
+# ==========================================
 @app.route("/cadastrar", methods=["POST"])
 def cadastrar():
     data = request.json
     nome = data.get("nome")
     cpf = data.get("cpf")
-    telefone = data.get("telefone")
+    # MAPEIA CAMPO 'TELEFONE' PARA COLUNA 'CELULAR' NO BANCO
+    celular = data.get("telefone") or data.get("celular")
     email = data.get("email")
     senha = data.get("senha")
 
     try:
+        # INSERE USUÁRIO NO BANCO DE DADOS
         conn = get_db_connection()
         cursor = conn.cursor()
-
-        sql = "INSERT INTO usuarios (nome_completo, cpf, telefone, email, senha) VALUES (%s, %s, %s, %s, %s)"
-        cursor.execute(sql, (nome, cpf, telefone, email, senha))
-
+        sql = "INSERT INTO usuario (nome_completo, cpf, celular, email, senha) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql, (nome, cpf, celular, email, senha))
         conn.commit()
         cursor.close()
         conn.close()
-
         return jsonify({"message": "Usuário cadastrado com sucesso!"}), 201
-
     except mysql.connector.Error as err:
-        print(f"Erro no MySQL: {err}")
+        # TRATA ERRO DE EXECUÇÃO
+        print(f"❌ Erro no Cadastro: {err}")
         return jsonify({"error": str(err)}), 500
 
-
-# --- ROTA 2: LOGIN ---
+# ==========================================
+# ROTA 2: LOGIN DE USUÁRIO
+# ==========================================
 @app.route("/login", methods=["POST"])
 def login():
     data = request.json
@@ -63,48 +82,115 @@ def login():
     senha = data.get("senha")
 
     try:
+        # BUSCA USUÁRIO NO BANCO COM EMAIL E SENHA
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-
-        sql = "SELECT * FROM usuarios WHERE email = %s AND senha = %s"
+        sql = "SELECT * FROM usuario WHERE email = %s AND senha = %s"
         cursor.execute(sql, (email, senha))
         user = cursor.fetchone()
-
         cursor.close()
         conn.close()
 
         if user:
+            # USUÁRIO ENCONTRADO - RETORNA DADOS
             return jsonify({"message": "Login realizado!", "user": user}), 200
         else:
-            return jsonify({"error": "Email ou senha incorretos"}), 401
-
+            # E-MAIL OU SENHA INCORRETOS
+            return jsonify({"error": "E-mail ou senha incorretos"}), 401
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# ==========================================
+# ROTA 3: ANUNCIAR PRODUTO (UPLOAD DE IMAGEM)
+# ==========================================
+@app.route("/anunciar", methods=["POST"])
+def anunciar():
+    try:
+        # VALIDA SE ARQUIVO FOI ENVIADO
+        if 'foto' not in request.files:
+            return jsonify({"error": "Nenhuma foto enviada"}), 400
+        
+        file = request.files['foto']
+        titulo = request.form.get('titulo')
+        descricao = request.form.get('descricao')
+        valor = request.form.get('valor')
 
-# --- ROTA 3: RECUPERAR SENHA ---
+        if file.filename == '':
+            return jsonify({"error": "Arquivo sem nome"}), 400
+
+        # GERA NOME Único PARA O ARQUIVO
+        filename = secure_filename(file.filename)
+        unique_name = f"prod_{os.urandom(4).hex()}_{filename}"
+        
+        # SALVA ARQUIVO NO DISCO
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_name)
+        file.save(filepath)
+
+        # URL RELATIVA PARA O BANCO DE DADOS E HTML
+        url_banco = f"/CatriaX/static/uploads/{unique_name}"
+
+        # INSERE PRODUTO NO BANCO
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = "INSERT INTO img (url, titulo, descricao, valor) VALUES (%s, %s, %s, %s)"
+        cursor.execute(sql, (url_banco, titulo, descricao, valor))
+        conn.commit()
+        
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "Produto anunciado com sucesso!", "url": url_banco}), 201
+    except Exception as e:
+        # TRATA ERRO DE ARQUIVO OU BANCO
+        print(f"❌ Erro no Anúncio: {e}")
+        return jsonify({"error": str(e)}), 500
+
+# ==========================================
+# ROTA 4: LISTAR PRODUTOS DO FEED
+# ==========================================
+@app.route("/produtos", methods=["GET"])
+def listar_produtos():
+    try:
+        # BUSCA TODOS OS PRODUTOS ORDENADOS POR DATA
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM img ORDER BY data_hora DESC")
+        produtos = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify(produtos), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ==========================================
+# ROTA 5: RECUPERAR SENHA VIA E-MAIL
+# ==========================================
 @app.route("/recuperar-senha", methods=["POST"])
 def recuperar_senha():
     data = request.json
     email_usuario = data.get("email")
 
     try:
+        # VALIDA SE E-MAIL EXISTE NO BANCO
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email_usuario,))
+        cursor.execute("SELECT * FROM usuario WHERE email = %s", (email_usuario,))
         user = cursor.fetchone()
         cursor.close()
         conn.close()
 
         if not user:
+            # NÃO REVELA SE E-MAIL EXISTE (SEGURANÇA)
             return jsonify({"message": "Se o e-mail existir, o link foi enviado."}), 200
 
+        # CONFIGURA MENSAGEM DE E-MAIL
         msg = Message(
             "Solicitação de Recuperação de Acesso - CATIRAX",
-            sender="rga.solucoes0@gmail.com",  # 'seu.email@gmail.com'
+            sender=app.config["MAIL_USERNAME"],
             recipients=[email_usuario],
         )
 
+        # CORPO DA MENSAGEM PERSONALIZADA
         msg.body = f"""
 Prezado(a) {user['nome_completo']},
 
@@ -131,16 +217,37 @@ Trata-se apenas de um teste de funcionalidade. Caso tenha recebido
 esta mensagem por engano, por favor, desconsidere e exclua o e-mail.
 """
 
+        # ENVIA E-MAIL
         mail.send(msg)
-
         return jsonify({"message": "E-mail enviado com sucesso!"}), 200
 
     except Exception as e:
-        print(f"Erro no envio de e-mail: {e}")
+        # TRATA ERRO NO ENVIO
+        print(f"❌ Erro no envio de e-mail: {e}")
         return jsonify({"error": "Erro ao enviar e-mail"}), 500
 
-
-# --- INICIALIZAÇÃO ---
+# ==========================================
+# STATUS E INICIALIZAÇÃO DO SERVIDOR
+# ==========================================
 if __name__ == "__main__":
-    print("🚀 Servidor rodando! Acesse: http://localhost:5000")
+    print("\n" + "="*60)
+    print("🟢 SISTEMA BACKEND CATIRAX - STATUS: OPERACIONAL")
+    print("="*60)
+    
+    # VALIDA CONEXÃO COM BANCO DE DADOS
+    try:
+        test_conn = get_db_connection()
+        test_conn.close()
+        print("✅ Conexão com o banco 'RGA_princp' estabelecida com sucesso!")
+    except Exception as err:
+        print(f"❌ ERRO NO BANCO DE DADOS: {err}")
+        print("👉 Dica: Verifique se o MySQL está rodando e se o banco 'RGA_princp' foi criado.")
+    
+    # EXIBE CONFIGURAÇÕES IMPORTANTES
+    print(f"📁 Pasta de Uploads: {os.path.abspath(UPLOAD_FOLDER)}")
+    print(f"📧 E-mail de Suporte: {app.config['MAIL_USERNAME']}")
+    print(f"🚀 Servidor rodando em: http://localhost:5000")
+    print("="*60 + "\n")
+    
+    # INICIA O SERVIDOR FLASK
     app.run(debug=True, port=5000)

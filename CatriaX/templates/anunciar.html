@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anunciar Produto - CatiraX</title>
+    <!-- Ícones e Fontes -->
+    <link href="[https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <link href='[https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css](https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css)' rel='stylesheet'>
+    <link rel="stylesheet" href="/CatriaX/static/css/anunciar.css">
+</head>
+<body class="dark-theme">
+
+<!-- ==========================================
+     CONTAINER PRINCIPAL DO ANÚNCIO
+     ========================================== -->
+<div class="container">
+    <div class="header">
+        <div class="back-link" onclick="window.location.href='index.html'">
+            <i class='bx bx-left-arrow-alt'></i> Voltar ao Feed
+        </div>
+        <h2><i class='bx bxs-camera-plus'></i> Criar Novo Anúncio</h2>
+        <p>Preencha os campos obrigatórios para publicar.</p>
+    </div>
+    
+    <!-- ==========================================
+         FORMULÁRIO DE CRIAÇÃO DE ANÚNCIO
+         ========================================== -->
+    <form id="formAnuncio" novalidate>
+        <!-- CAMPO: TÍTULO DO PRODUTO -->
+        <div class="input-group">
+            <label>Título *</label>
+            <input type="text" id="titulo" placeholder="Ex: iPhone 15 Pro Max em bom estado">
+        </div>
+
+        <!-- CAMPO: VALOR DO PRODUTO -->
+        <div class="input-group">
+            <label>Valor (Máx: R$ 8.000.000,00) *</label>
+            <input type="text" id="valor" placeholder="R$ 0,00">
+        </div>
+
+        <!-- CAMPO: DESCRIÇÃO DETALHADA -->
+        <div class="input-group">
+            <label>Descrição Detalhada</label>
+            <textarea id="descricao" rows="4" placeholder="Conte mais sobre o produto, tempo de uso ou se aceita trocas..."></textarea>
+        </div>
+
+        <button type="submit" id="btnEnviar" class="btn-submit">Publicar Agora</button>
+    </form>
+</div>
+
+<!-- O contentor de balões deve estar aqui -->
+<div id="toastContainer"></div>
+
+<script src="/CatriaX/static/js/anunciar.js"></script>
+</body>
+</html>

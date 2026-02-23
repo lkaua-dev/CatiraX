@@ -1,46 +1,50 @@
+// ==========================================
+// NAVEGAÇÃO E ALTERNÂNCIA ENTRE ABAS
+// ==========================================
+
+// AGUARDA PÁGINA CARREGAR PARA CONFIGURAR NAVEGAÇÃO
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Procura QUALQUER elemento que tenha o atributo 'data-target'.
     const gatilhos = document.querySelectorAll('.nav-trigger');
     const secoes = document.querySelectorAll('.pagina');
     const linksMenu = document.querySelectorAll('.nav-link');
 
+    // ADICIONA EVENTO A CADA BOTÃO DE NAVEGAÇÃO
     gatilhos.forEach(botao => {
         botao.addEventListener('click', (e) => {
+            // OBTÉM QUAL SEÇÃO MOSTRAR PELO data-target
             const targetId = botao.getAttribute('data-target');
             if (!targetId) return;
 
-            // Previne o recarregamento da página se for uma tag <a>
             if(botao.tagName === 'A') e.preventDefault();
 
-            // Atualiza o sublinhado/cor do menu superior
+            // MARCA QUAL LINK DO MENU ESTÁ ATIVO
             linksMenu.forEach(link => link.classList.remove('ativo'));
             const linkCorrespondente = document.querySelector(`.nav-link[data-target="${targetId}"]`);
             if (linkCorrespondente) linkCorrespondente.classList.add('ativo');
 
-            // Esconde todas as seções e remove a classe de animação
+            // ESCONDE TODAS AS SEÇÕES
             secoes.forEach(secao => {
                 secao.style.display = 'none';
                 secao.classList.remove('animando');
             });
 
-            // Mostra a seção que o usuário clicou
+            // MOSTRA APENAS A SEÇÃO SELECIONADA
             const secaoAlvo = document.getElementById(targetId);
             if (secaoAlvo) {
                 secaoAlvo.style.display = 'block';
-                
-                // O truque do Reflow: Força o navegador a reiniciar a animação CSS
-                void secaoAlvo.offsetWidth; 
-                
-                // Adiciona a classe que dispara as animações de subida (fade up)
+
+                // FORÇA REFLOW PARA ATIVAR ANIMAÇÃO CSS
+                void secaoAlvo.offsetWidth;
+
                 secaoAlvo.classList.add('animando');
-                
-                // Faz a tela rolar suavemente para o topo ao trocar de aba
+
+                // FOCA TOPO DA PÁGINA COM ROLAGEM SUAVE
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
     });
 
-    // Força a animação a rodar na tela 'home' logo que o site carrega
+    // MOSTRA SEÇÃO HOME COMO PADRÃO INICIAL
     const telaInicial = document.getElementById('home');
     if (telaInicial) {
         telaInicial.classList.add('animando');

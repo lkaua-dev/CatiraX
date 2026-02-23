@@ -1,4 +1,6 @@
-/* --- VARIÁVEIS DE CORES --- */
+/* ==========================================
+   VARIÁVEIS DE CORES
+   ========================================== */
 :root {
     --primaria: #0d47a1;
     --primaria-gradiente: linear-gradient(135deg, #1565c0, #0d47a1);
@@ -9,7 +11,9 @@
     --fundo: #f8fafc;
 }
 
-/* --- RESET BÁSICO --- */
+/* ==========================================
+   RESET BÁSICO
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +28,10 @@ body {
     overflow-x: hidden;
 }
 
-/* --- CABEÇALHO (Efeito Vidro / Glassmorphism) --- */
+/* ==========================================
+   CABEÇALHO (EFEITO VIDRO / GLASSMORPHISM)
+   ========================================== */
+/* BARRA SUPERIOR COM LOGO, NAVEGAÇÃO E BOTÕES DE AUTENTICAÇÃO */
 header {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
@@ -53,6 +60,7 @@ header {
     transform: scale(1.05);
 }
 
+/* PARTE COLORIDA DO LOGO */
 .logo span {
     color: var(--primaria);
 }
@@ -73,7 +81,7 @@ nav {
     position: relative;
 }
 
-/* Efeito de sublinhado animado no menu */
+/* BARRA SUBLINHADA ANIMADA NO HOVER */
 .nav-link::after {
     content: '';
     position: absolute;
@@ -98,6 +106,7 @@ nav {
     width: 100%;
 }
 
+/* BOTÕES DE LOGIN E CADASTRO */
 .auth-buttons {
     display: flex;
     gap: 15px;
@@ -136,7 +145,10 @@ nav {
     box-shadow: 0 6px 20px rgba(13, 71, 161, 0.35);
 }
 
-/* --- CONTEÚDO PRINCIPAL --- */
+/* ==========================================
+   CONTEÚDO PRINCIPAL
+   ========================================== */
+/* ÁREA CENTRAL COM ABAS QUE MUDAM DE CONTEÚDO */
 main {
     width: 100%;
     padding: 40px 5%;
@@ -158,7 +170,10 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- CONTAINER LADO A LADO --- */
+/* ==========================================
+   CONTAINER LADO A LADO
+   ========================================== */
+/* LAYOUT FLEXÍVEL COM IMAGEM E TEXTO LADO A LADO */
 .split-container {
     display: flex;
     align-items: center;
@@ -169,7 +184,9 @@ main {
     background: transparent;
 }
 
-/* --- LADO DA IMAGEM --- */
+/* ==========================================
+   LADO DA IMAGEM
+   ========================================== */
 .split-image {
     width: 45%;
     display: flex;
@@ -177,7 +194,6 @@ main {
     position: relative;
 }
 
-/* Efeito de brilho atrás da imagem */
 .split-image::before {
     content: '';
     position: absolute;
@@ -190,6 +206,7 @@ main {
     border-radius: 50%;
 }
 
+/* IMAGEM RESPONSIVA COM EFEITO HOVER */
 .split-image img {
     width: 100%;
     max-width: 550px;
@@ -204,12 +221,15 @@ main {
     transform: translateY(-10px) scale(1.02);
 }
 
-/* --- LADO DO TEXTO --- */
+/* ==========================================
+   LADO DO TEXTO
+   ========================================== */
 .split-text {
     flex: 1;
     text-align: left;
 }
 
+/* TÍTULO GRANDE DA SEÇÃO */
 .split-text h2 {
     font-size: 3rem;
     font-weight: 800;
@@ -226,7 +246,10 @@ main {
     color: var(--texto);
 }
 
-/* --- ELEMENTOS EXTRAS (Badge e Botões) --- */
+/* ==========================================
+   ELEMENTOS EXTRAS (BADGE E BOTÕES)
+   ========================================== */
+/* RÓTULOS E BOTÕES DE AÇÃO COM EFEITOS HOVER */
 .badge {
     display: inline-block;
     background: var(--secundaria);
@@ -288,7 +311,9 @@ main {
     transform: translateX(-5px);
 }
 
-/* --- ANIMAÇÕES NAS ABAS --- */
+/* ==========================================
+   ANIMAÇÕES NAS ABAS
+   ========================================== */
 .animando .badge,
 .animando h2,
 .animando p,
@@ -309,12 +334,16 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- INVERSÃO DE LADO (ZIG-ZAG) --- */
+/* ==========================================
+   INVERSÃO DE LADO (ZIG-ZAG)
+   ========================================== */
 .split-reverse {
     flex-direction: row-reverse;
 }
 
-/* --- ESTATÍSTICAS DA EQUIPE --- */
+/* ==========================================
+   ESTATÍSTICAS DA EQUIPE
+   ========================================== */
 .team-stats {
     display: flex;
     gap: 40px;
@@ -338,7 +367,10 @@ main {
     font-weight: 500;
 }
 
-/* --- METAS E SOLUÇÕES (GRID) --- */
+/* ==========================================
+   METAS E SOLUÇÕES (GRID)
+   ========================================== */
+/* CARDS DE RECURSOS COM ÍCONES E DESCRIÇÕES */
 .metas-header {
     text-align: center;
     margin-bottom: 60px;
@@ -370,7 +402,7 @@ main {
     gap: 30px;
     width: 100%;
 }
-
+/* CARD DE META/FUNCIONALIDADE */
 .meta-card {
     background: #ffffff;
     border-radius: 20px;
@@ -407,6 +439,7 @@ main {
     opacity: 1;
 }
 
+/* ÍCONE DENTRO DO CARD DE META */
 .meta-icone {
     font-size: 2.5rem;
     color: var(--primaria);
@@ -439,7 +472,10 @@ main {
     margin: 0;
 }
 
-/* --- GRID DA EQUIPE (NOVO E CENTRALIZADO) --- */
+/* ==========================================
+   GRID DA EQUIPE (NOVO E CENTRALIZADO)
+   ========================================== */
+/* CARDS DOS MEMBROS COM AVATAR, NOME E FUNÇÃO */
 .team-section {
     margin-top: 80px;
     width: 100%;
@@ -448,13 +484,14 @@ main {
 .team-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centraliza a última linha perfeitamente */
+    justify-content: center;
     gap: 30px;
 }
 
+/* CARD DO MEMBRO DA EQUIPE */
 .team-member {
     flex: 1 1 260px;
-    max-width: 280px; /* Impede que fiquem esticados demais */
+    max-width: 280px;
     background: #ffffff;
     border-radius: 20px;
     padding: 35px 25px;
@@ -477,6 +514,7 @@ main {
     border: 2px solid var(--secundaria);
 }
 
+/* FOTO REDONDA DO MEMBRO */
 .member-avatar {
     width: 85px;
     height: 85px;
@@ -516,7 +554,9 @@ main {
     margin: 0;
 }
 
-/* --- RESPONSIVIDADE --- */
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
 @media (max-width: 992px) {
     .split-container, .split-reverse {
         flex-direction: column;

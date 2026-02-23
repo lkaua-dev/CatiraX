@@ -11,16 +11,16 @@
 
 <body class="feed-body">
 
-    <!-- =========================================
-        NOVA NAVBAR SUPERIOR (Fora das imagens)
-        ========================================= -->
+    <!-- ==========================================
+         BARRA DE NAVEGAÇÃO SUPERIOR
+         ========================================== -->
     <nav class="top-navbar">
-        <!-- Logo e Boas vindas -->
+        <!-- LOGO E SAUDAÇÃO DE BEM-VINDO -->
         <div class="nav-left">
             <h3 class="brand-logo" id="welcomeMsg">CatiraX</h3>
         </div>
 
-        <!-- Barra de Pesquisa -->
+        <!-- BARRA DE BUSCA CENTRALIZADA -->
         <div class="nav-center">
             <div class="search-bar">
                 <i class='bx bx-search'></i>
@@ -28,9 +28,9 @@
             </div>
         </div>
 
-        <!-- Botões de Ação e Perfil -->
+        <!-- BOTÕES DE AÇÃO E PERFIL DO USUÁRIO -->
         <div class="nav-right">
-            <a href="#" class="btn-anunciar">
+            <a href="anunciar.html" class="btn-anunciar">
                 <i class='bx bxs-camera-plus'></i> <span class="hide-mobile">Anunciar</span>
             </a>
 
@@ -44,13 +44,13 @@
         </div>
     </nav>
 
-    <!-- =========================================
-        CONTEÚDO DO FEED (Scroll Magnético)
-        ========================================= -->
+    <!-- ==========================================
+         ÁREA DO FEED COM PRODUTOS
+         ========================================== -->
     <div class="feed-wrapper">
         <div class="feed-container">
 
-            <!-- Produto 1 -->
+            <!-- PRODUTO 1: IPHONE -->
             <div class="product-card"
                 style="background-image: url('../static/img/iphone.png'); background-color: #1a1a1a;">
                 <div class="overlay-gradient"></div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
 
-            <!-- Produto 2 -->
+            <!-- PRODUTO 2: TÊNIS -->
             <div class="product-card" style="background-image: url('../static/img/nike.png'); background-color: #222;">
                 <div class="overlay-gradient"></div>
                 <div class="product-info">
@@ -106,7 +106,7 @@
                 </div>
             </div>
 
-            <!-- Produto 3 -->
+            <!-- PRODUTO 3: SETUP GAMER -->
             <div class="product-card"
                 style="background-image: url('../static/img/pcgamer.png'); background-color: #111;">
                 <div class="overlay-gradient"></div>
@@ -138,9 +138,9 @@
         </div>
     </div>
 
-    <!-- =========================================
-        MODAL DE COMENTÁRIOS (Sheet)
-        ========================================= -->
+    <!-- ==========================================
+         MODAL DE COMENTÁRIOS (SHEET INFERIOR)
+         ========================================== -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeComments()"></div>
     <div class="comments-sheet" id="commentsSheet">
         <div class="sheet-header">

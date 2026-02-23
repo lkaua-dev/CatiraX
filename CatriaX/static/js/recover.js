@@ -2,7 +2,9 @@ const form = document.querySelector("#formRecover");
 const emailInput = document.querySelector("#email");
 const btn = document.querySelector(".btn-auth");
 
-// --- Funções de Balão (Atualizadas para evitar acumular várias mensagens) ---
+// ==========================================
+// FUNÇÃO PARA MOSTRAR ERRO (BALÃO VERMELHO)
+// ==========================================
 function mostrarErro(mensagem) {
     const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
     if (toastAntigo) toastAntigo.remove();
@@ -17,6 +19,9 @@ function mostrarErro(mensagem) {
     }, 3000);
 }
 
+// ==========================================
+// FUNÇÃO PARA MOSTRAR SUCESSO (BALÃO VERDE)
+// ==========================================
 function mostrarSucesso(mensagem) {
     const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
     if (toastAntigo) toastAntigo.remove();
@@ -31,14 +36,15 @@ function mostrarSucesso(mensagem) {
     }, 3000);
 }
 
-// --- Lógica de Envio ---
+// ==========================================
+// LÓGICA DE ENVIO DE RECUPERAÇÃO
+// ==========================================
 form.addEventListener("submit", (evento) => {
     evento.preventDefault();
 
+    // VALIDAÇÃO DO CAMPO EMAIL VAZIO
     if (!emailInput.value) {
         mostrarErro("Por favor, digite seu e-mail.");
-
-        // Efeito visual de erro no input igual ao da tela de login
         emailInput.style.borderColor = '#ff4d4d';
         setTimeout(() => {
             emailInput.style.borderColor = '';
@@ -46,39 +52,42 @@ form.addEventListener("submit", (evento) => {
         return;
     }
 
-    // 1. Muda o botão para "Enviando..."
+    // DESABILITA BOTÃO ENQUANTO PROCESSA
     const textoOriginal = btn.innerText;
     btn.innerText = "Enviando...";
     btn.disabled = true;
     btn.style.opacity = "0.7";
-    btn.style.cursor = "not-allowed"; // Mouse mostra que não pode clicar
+    btn.style.cursor = "not-allowed";
 
-    // 2. Envia para o Python
+    // ENVIA EMAIL PARA O SERVIDOR PYTHON
     fetch('http://localhost:5000/recuperar-senha', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailInput.value })
     })
+        // TRATA RESPOSTA DO SERVIDOR
         .then(async res => {
             const resultado = await res.json();
 
+            // SE ENVIOU COM SUCESSO
             if (res.ok) {
                 mostrarSucesso("E-mail enviado! Verifique sua caixa de entrada.");
                 form.reset();
-                // Redireciona após 3 segundos
                 setTimeout(() => {
                     window.location.href = "login.html";
                 }, 3000);
             } else {
+                // SE TEVE ERRO NA RESPOSTA DO SERVIDOR
                 mostrarErro(resultado.error || "Erro ao tentar enviar.");
             }
         })
+        // TRATA ERRO DE CONEXÃO
         .catch(erro => {
             console.error(erro);
             mostrarErro("Erro de conexão com o servidor.");
         })
+        // RESTAURA O BOTÃO APÓS PROCESSAR
         .finally(() => {
-            // 3. Restaura o botão
             btn.innerText = textoOriginal;
             btn.disabled = false;
             btn.style.opacity = "1";

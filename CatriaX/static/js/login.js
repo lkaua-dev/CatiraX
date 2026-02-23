@@ -3,9 +3,10 @@ const senhaInput = document.querySelector("#senha");
 const form = document.querySelector("form");
 const btnSubmit = document.querySelector("#btnSubmit");
 
-// 1. Função para mostrar erro (Balão Vermelho)
+// ==========================================
+// FUNÇÃO PARA MOSTRAR ERRO (BALÃO VERMELHO)
+// ==========================================
 function mostrarErro(mensagem) {
-    // Remove toast anterior se existir para evitar empilhamento infinito
     const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
     if (toastAntigo) toastAntigo.remove();
 
@@ -20,7 +21,9 @@ function mostrarErro(mensagem) {
     }, 3000);
 }
 
-// 2. Função para mostrar sucesso (Balão Verde)
+// ==========================================
+// FUNÇÃO PARA MOSTRAR SUCESSO (BALÃO VERDE)
+// ==========================================
 function mostrarSucesso(mensagem) {
     const toastAntigo = document.querySelector('.toast-erro, .toast-sucesso');
     if (toastAntigo) toastAntigo.remove();
@@ -36,16 +39,19 @@ function mostrarSucesso(mensagem) {
     }, 3000);
 }
 
-// 3. O Evento de Login
+// ==========================================
+// EVENTO DE LOGIN E AUTENTICAÇÃO
+// ==========================================
 form.addEventListener("submit", (evento) => {
     evento.preventDefault();
 
+    // COLETA OS DADOS DO FORMULÁRIO
     const dados = {
         email: emailInput.value,
         senha: senhaInput.value
     };
 
-    // Validação simples com animação de erro no input
+    // VALIDAÇÃO: VERIFICA SE EMAIL E SENHA ESTÃO PREENCHIDOS
     if (!dados.email || !dados.senha) {
         mostrarErro("Preencha e-mail e senha!");
         emailInput.style.borderColor = '#ff4d4d';
@@ -57,46 +63,42 @@ form.addEventListener("submit", (evento) => {
         return;
     }
 
-    // Animação de carregamento no botão
+    // DESABILITA BOTÃO ENQUANTO PROCESSA
     const btnOriginalText = btnSubmit.innerHTML;
     btnSubmit.innerHTML = 'Entrando...';
     btnSubmit.style.opacity = '0.8';
     btnSubmit.style.cursor = 'not-allowed';
 
-    // Envia para o Python (Porta 5000)
+    // ENVIA LOGIN PARA O SERVIDOR PYTHON
     fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
     })
+        // TRATA RESPOSTA DO SERVIDOR
         .then(async res => {
-            // Restaura o botão
             btnSubmit.innerHTML = btnOriginalText;
             btnSubmit.style.opacity = '1';
             btnSubmit.style.cursor = 'pointer';
 
             const resultado = await res.json();
 
+            // SE AUTENTICOU COM SUCESSO
             if (res.ok) {
-                // SUCESSO!
                 mostrarSucesso("Login realizado! Entrando...");
-
-                // Salva o usuário no navegador
                 localStorage.setItem("usuarioLogado", JSON.stringify(resultado.user));
-
-                // Espera 1.5s e REDIRECIONA
                 setTimeout(() => {
                     window.location.href = "index.html";
                 }, 1500);
 
             } else {
-                // ERRO (Senha errada ou usuário não existe)
+                // SE TEVE ERRO (EMAIL/SENHA INCORRETOS)
                 mostrarErro(resultado.error || "E-mail ou senha incorretos.");
             }
         })
+        // TRATA ERRO DE CONEXÃO
         .catch(erro => {
             console.error(erro);
-            // Restaura o botão
             btnSubmit.innerHTML = btnOriginalText;
             btnSubmit.style.opacity = '1';
             btnSubmit.style.cursor = 'pointer';

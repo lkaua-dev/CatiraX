@@ -1,6 +1,6 @@
-/* =========================================
-    RESET LOCAL
-   ========================================= */
+/* ==========================================
+   RESET LOCAL
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -8,22 +8,23 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* =========================================
-    LAYOUT PRINCIPAL (FUNDO ESCURO E MODERNO)
-   ========================================= */
+/* ==========================================
+   LAYOUT PRINCIPAL (FUNDO ESCURO E MODERNO)
+   ========================================== */
 body.feed-body {
     background-color: #080808;
     color: white;
     height: 100vh;
     width: 100vw;
-    overflow: hidden; 
+    overflow: hidden;
     display: flex;
-    flex-direction: column; /* Coloca a Navbar em cima e o feed embaixo */
+    flex-direction: column;
 }
 
-/* =========================================
-    NAVBAR SUPERIOR (O Novo Menu)
-   ========================================= */
+/* ==========================================
+   NAVBAR SUPERIOR (O NOVO MENU)
+   ========================================== */
+/* BARRA DE NAVEGAÇÃO COM LOGO, BUSCA E PERFIL */
 .top-navbar {
     height: 70px;
     background-color: #121212;
@@ -36,6 +37,7 @@ body.feed-body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* NOME DA MARCA COM GRADIENTE */
 .nav-left .brand-logo {
     font-size: 1.4rem;
     font-weight: 800;
@@ -45,7 +47,7 @@ body.feed-body {
     letter-spacing: -0.5px;
 }
 
-/* Barra de Pesquisa */
+/* BARRA CENTRALIZADA DE BUSCA */
 .nav-center {
     flex: 1;
     display: flex;
@@ -90,7 +92,7 @@ body.feed-body {
     color: #888;
 }
 
-/* Botões da Direita */
+/* BOTÕES E MENU DE USUÁRIO NO LADO DIREITO */
 .nav-right {
     display: flex;
     align-items: center;
@@ -104,7 +106,7 @@ body.feed-body {
     padding: 10px 20px;
     border-radius: 25px;
     font-weight: 600;
-    font-size: 1rem; /* Tamanho exato */
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,13 +117,13 @@ body.feed-body {
 }
 
 .btn-anunciar i {
-    font-size: 1rem; /* Mesmo tamanho do texto */
+    font-size: 1rem;
     display: flex;
     align-items: center;
 }
 
 .btn-anunciar span {
-    font-size: 1rem; /* Mesmo tamanho do ícone */
+    font-size: 1rem;
     display: flex;
     align-items: center;
 }
@@ -171,6 +173,7 @@ body.feed-body {
 /* =========================================
     AREA DO FEED (Scroll Magnético)
    ========================================= */
+/* CONTAINER PARA EXIBIR PRODUTOS COM SCROLL FIXO */
 .feed-wrapper {
     flex: 1;
     display: flex;
@@ -180,7 +183,7 @@ body.feed-body {
 
 .feed-container {
     width: 100%;
-    max-width: 450px; /* Mantém o formato "Celular/TikTok" */
+    max-width: 450px;
     height: 100%;
     position: relative;
     border-left: 1px solid #222;
@@ -198,6 +201,7 @@ body.feed-body {
 /* =========================================
     COMPONENTES DO CARD DO PRODUTO
    ========================================= */
+/* CARD COM IMAGEM, TÍTULO, PREÇO E BOTÕES DE AÇÃO */
 .product-card {
     position: relative;
     width: 100%;
@@ -229,6 +233,7 @@ body.feed-body {
     max-width: 75%;
 }
 
+/* TÍTULO DO PRODUTO NO CARD */
 .product-info h2 { 
     font-size: 1.5rem; 
     margin-bottom: 5px; 
@@ -236,6 +241,7 @@ body.feed-body {
     font-weight: 700;
 }
 
+/* PREÇO DESTACADO EM VERDE */
 .product-price { 
     display: inline-block;
     font-size: 1.5rem; 
@@ -252,7 +258,7 @@ body.feed-body {
     line-height: 1.4;
 }
 
-/* Sidebar Lateral (Botões) */
+/* BOTÕES DE AÇÃO (CURTIR, COMENTAR, COMPRAR) */
 .actions-sidebar {
     position: absolute;
     right: 15px;
@@ -302,6 +308,7 @@ body.feed-body {
 /* =========================================
     GAVETA DE COMENTÁRIOS (Sheet)
    ========================================= */
+/* MODAL INFERIOR PARA VISUALIZAR E POSTAR COMENTÁRIOS */
 .comments-sheet {
     position: fixed;
     bottom: -100%;
@@ -322,6 +329,7 @@ body.feed-body {
 
 .comments-sheet.active { bottom: 0; }
 
+/* CABEÇALHO DO MODAL DE COMENTÁRIOS */
 .sheet-header {
     padding: 18px;
     text-align: center;
@@ -342,6 +350,7 @@ body.feed-body {
 }
 .close-btn:hover { color: white; }
 
+/* LISTA SCROLLÁVEL DE COMENTÁRIOS */
 .comments-list {
     flex: 1;
     overflow-y: auto;
@@ -359,6 +368,7 @@ body.feed-body {
 .comment-content h4 { margin: 0 0 4px 0; font-size: 0.9rem; color: #bbb; }
 .comment-content p { margin: 0; font-size: 0.95rem; line-height: 1.4; color: #eee; }
 
+/* ÁREA DE INPUT PARA NOVO COMENTÁRIO */
 .comment-input-area {
     padding: 15px 20px 25px 20px;
     border-top: 1px solid #333;
