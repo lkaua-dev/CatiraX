@@ -15,20 +15,24 @@ CORS(app)
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USERNAME"] = "rga.solucoes0@gmail.com"
-app.config["MAIL_PASSWORD"] = "nxng sadf xcsl ahkz"
+# Leia a senha do e-mail a partir de variável de ambiente para segurança
+app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD", "")
+if not app.config["MAIL_PASSWORD"]:
+    print("⚠️ Aviso: variável de ambiente MAIL_PASSWORD não definida. E-mails não serão enviados sem senha configurada.")
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
 
 mail = Mail(app)
 
 # ==========================================
-# CONFIGURAÇÃO DA PASTA DE UPLOAD
+# CONFIGURAÇÃO DA PASTA DE UPLOAD (CAMINHO ABSOLUTO)
 # ==========================================
-UPLOAD_FOLDER = os.path.join('CatriaX', 'static', 'uploads')
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
 
 # Garante que a pasta exista fisicamente
 if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     print(f"✅ Pasta de uploads verificada/criada em: {UPLOAD_FOLDER}")
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -127,7 +131,7 @@ def anunciar():
         file.save(filepath)
 
         # URL RELATIVA PARA O BANCO DE DADOS E HTML
-        url_banco = f"/CatriaX/static/uploads/{unique_name}"
+        url_banco = f"/static/uploads/{unique_name}"
 
         # INSERE PRODUTO NO BANCO
         conn = get_db_connection()
@@ -252,3 +256,4 @@ if __name__ == "__main__":
     # INICIA O SERVIDOR FLASK
     import os
     app.run(debug=True, port=5000)
+ 
