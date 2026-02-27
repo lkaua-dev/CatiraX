@@ -15,8 +15,7 @@ CORS(app)
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USERNAME"] = "rga.solucoes0@gmail.com"
-# Leia a senha do e-mail a partir de variável de ambiente para segurança
-app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD", "")
+app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD", "dbjx zozl syfs cxxf")
 if not app.config["MAIL_PASSWORD"]:
     print("⚠️ Aviso: variável de ambiente MAIL_PASSWORD não definida. E-mails não serão enviados sem senha configurada.")
 app.config["MAIL_USE_TLS"] = False
@@ -255,5 +254,4 @@ if __name__ == "__main__":
     
     # INICIA O SERVIDOR FLASK
     import os
-    app.run(debug=True, port=5000)
- 
+    app.run(host="0.0.0.0", debug=True, port=5000)
