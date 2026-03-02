@@ -130,7 +130,7 @@ def anunciar():
         file.save(filepath)
 
         # URL RELATIVA PARA O BANCO DE DADOS E HTML
-        url_banco = f"/static/uploads/{unique_name}"
+        url_banco = f"../static/uploads/{unique_name}"
 
         # INSERE PRODUTO NO BANCO
         conn = get_db_connection()
