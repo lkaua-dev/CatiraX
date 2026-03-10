@@ -1,11 +1,12 @@
 /* ==========================================
-   RESET LOCAL
+   RESET LOCAL E DEFINIÇÕES GERAIS
    ========================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Remove piscar azul nos telemóveis ao tocar */
 }
 
 /* ==========================================
@@ -14,7 +15,8 @@
 body.feed-body {
     background-color: #080808;
     color: white;
-    height: 100vh;
+    /* 100dvh é crucial para telemóveis: ajusta o tamanho ignorando a barra de endereço do navegador */
+    height: 100dvh; 
     width: 100vw;
     overflow: hidden;
     display: flex;
@@ -24,7 +26,6 @@ body.feed-body {
 /* ==========================================
    NAVBAR SUPERIOR (O NOVO MENU)
    ========================================== */
-/* BARRA DE NAVEGAÇÃO COM LOGO, BUSCA E PERFIL */
 .top-navbar {
     height: 70px;
     background-color: #121212;
@@ -32,12 +33,12 @@ body.feed-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 25px;
+    padding: env(safe-area-inset-top) 25px 0 25px; /* Respeita o Notch (entalhe) do iPhone */
     z-index: 100;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
 }
 
-/* NOME DA MARCA COM GRADIENTE */
 .nav-left .brand-logo {
     font-size: 1.4rem;
     font-weight: 800;
@@ -47,7 +48,6 @@ body.feed-body {
     letter-spacing: -0.5px;
 }
 
-/* BARRA CENTRALIZADA DE BUSCA */
 .nav-center {
     flex: 1;
     display: flex;
@@ -73,11 +73,7 @@ body.feed-body {
     box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
 }
 
-.search-bar i {
-    color: #888;
-    font-size: 1.2rem;
-}
-
+.search-bar i { color: #888; font-size: 1.2rem; }
 .search-bar input {
     background: none;
     border: none;
@@ -87,20 +83,12 @@ body.feed-body {
     outline: none;
     font-size: 0.95rem;
 }
+.search-bar input::placeholder { color: #888; }
 
-.search-bar input::placeholder {
-    color: #888;
-}
-
-/* BOTÕES E MENU DE USUÁRIO NO LADO DIREITO */
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
+.nav-right { display: flex; align-items: center; gap: 20px; }
 
 .btn-anunciar {
-    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    background: linear-gradient(135deg, #3dc015, #30a10d);
     color: white;
     text-decoration: none;
     padding: 10px 20px;
@@ -113,25 +101,8 @@ body.feed-body {
     gap: 8px;
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    line-height: 1;
 }
-
-.btn-anunciar i {
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.btn-anunciar span {
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.btn-anunciar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(21, 101, 192, 0.4);
-}
+.btn-anunciar i { font-size: 1.2rem; }
 
 .user-menu {
     display: flex;
@@ -142,43 +113,28 @@ body.feed-body {
 }
 
 .profile-img {
-    width: 38px;
-    height: 38px;
+    width: 38px; height: 38px;
     border-radius: 50%;
     border: 2px solid #1976d2;
     object-fit: cover;
     cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.profile-img:hover {
-    transform: scale(1.05);
 }
 
 .btn-sair {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    font-size: 1.6rem;
+    background: none; border: none;
+    color: #ff4d4d; font-size: 1.6rem;
     cursor: pointer;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-}
-
-.btn-sair:hover {
-    color: #ff1a1a;
 }
 
 /* =========================================
-    AREA DO FEED (Scroll Magnético)
+   ÁREA DO FEED (Scroll Magnético)
    ========================================= */
-/* CONTAINER PARA EXIBIR PRODUTOS COM SCROLL FIXO */
 .feed-wrapper {
     flex: 1;
     display: flex;
     justify-content: center;
     background-color: #000;
+    overflow: hidden; /* Mantém o scroll apenas no contentor interno */
 }
 
 .feed-container {
@@ -186,27 +142,26 @@ body.feed-body {
     max-width: 450px;
     height: 100%;
     position: relative;
-    border-left: 1px solid #222;
-    border-right: 1px solid #222;
     background-color: #0a0a0a;
     
-    /* Scroll Magnético */
+    /* Scroll Magnético Otimizado para Telemóvel */
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 .feed-container::-webkit-scrollbar { display: none; }
 
 /* =========================================
-    COMPONENTES DO CARD DO PRODUTO
+   COMPONENTES DO CARTÃO DO PRODUTO
    ========================================= */
-/* CARD COM IMAGEM, TÍTULO, PREÇO E BOTÕES DE AÇÃO */
 .product-card {
     position: relative;
     width: 100%;
     height: 100%;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -216,24 +171,20 @@ body.feed-body {
 
 .overlay-gradient {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.6) 50%, transparent);
+    bottom: 0; left: 0;
+    width: 100%; height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, transparent);
     pointer-events: none;
 }
 
-/* Info do Produto */
 .product-info {
     position: absolute;
-    bottom: 30px;
+    bottom: calc(30px + env(safe-area-inset-bottom)); /* Respeita a barra de navegação do iPhone */
     left: 20px;
     z-index: 40;
     max-width: 75%;
 }
 
-/* TÍTULO DO PRODUTO NO CARD */
 .product-info h2 { 
     font-size: 1.5rem; 
     margin-bottom: 5px; 
@@ -241,7 +192,6 @@ body.feed-body {
     font-weight: 700;
 }
 
-/* PREÇO DESTACADO EM VERDE */
 .product-price { 
     display: inline-block;
     font-size: 1.5rem; 
@@ -256,13 +206,16 @@ body.feed-body {
     color: #e0e0e0; 
     text-shadow: 0 1px 3px rgba(0,0,0,0.9); 
     line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita as linhas nos telemóveis */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* BOTÕES DE AÇÃO (CURTIR, COMENTAR, COMPRAR) */
 .actions-sidebar {
     position: absolute;
     right: 15px;
-    bottom: 40px;
+    bottom: calc(40px + env(safe-area-inset-bottom));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -271,34 +224,38 @@ body.feed-body {
 }
 
 .action-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex; flex-direction: column; align-items: center;
     cursor: pointer;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .action-btn:active { transform: scale(0.85); }
 
 .action-btn i {
-    font-size: 34px;
-    color: white;
+    font-size: 34px; color: white;
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
-    margin-bottom: 6px;
-    transition: color 0.3s;
+    margin-bottom: 6px; transition: color 0.3s;
+}
+
+.action-btn.liked i {
+    color: #ff2a5f;
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 
 .action-btn span { 
-    font-size: 12px; 
-    font-weight: 700; 
+    font-size: 12px; font-weight: 700; 
     text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .whatsapp-btn i { color: #25D366; }
-.whatsapp-btn:hover i { color: #20b858; transform: scale(1.1); }
 
 .seller-profile img {
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     border-radius: 50%;
     border: 2px solid white;
     object-fit: cover;
@@ -306,132 +263,102 @@ body.feed-body {
 }
 
 /* =========================================
-    GAVETA DE COMENTÁRIOS (Sheet)
+   GAVETA DE COMENTÁRIOS (Sheet)
    ========================================= */
-/* MODAL INFERIOR PARA VISUALIZAR E POSTAR COMENTÁRIOS */
 .comments-sheet {
     position: fixed;
-    bottom: -100%;
-    left: 50%;
+    bottom: -100%; left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 450px;
-    height: 70vh;
+    width: 100%; max-width: 450px;
+    height: 70dvh; 
     background-color: #1e1e1e;
     border-radius: 20px 20px 0 0;
     z-index: 1000;
     transition: bottom 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     color: white;
     box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
 }
 
 .comments-sheet.active { bottom: 0; }
 
-/* CABEÇALHO DO MODAL DE COMENTÁRIOS */
 .sheet-header {
-    padding: 18px;
-    text-align: center;
+    padding: 18px; text-align: center;
     border-bottom: 1px solid #333;
-    font-weight: bold;
-    font-size: 1.1rem;
+    font-weight: bold; font-size: 1.1rem;
     position: relative;
 }
 
 .close-btn {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    font-size: 26px;
-    cursor: pointer;
-    color: #888;
-    transition: color 0.2s;
+    position: absolute; right: 20px; top: 15px;
+    font-size: 26px; cursor: pointer; color: #888;
 }
-.close-btn:hover { color: white; }
 
-/* LISTA SCROLLÁVEL DE COMENTÁRIOS */
 .comments-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
+    flex: 1; overflow-y: auto; padding: 20px;
+    padding-bottom: 25px; /* Espaço para a caixa de introdução */
 }
 
-.comment-item {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 25px;
-    animation: fadeIn 0.3s ease;
-}
-
+.comment-item { display: flex; gap: 15px; margin-bottom: 25px; animation: fadeIn 0.3s ease; }
 .comment-avatar img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 .comment-content h4 { margin: 0 0 4px 0; font-size: 0.9rem; color: #bbb; }
 .comment-content p { margin: 0; font-size: 0.95rem; line-height: 1.4; color: #eee; }
 
-/* ÁREA DE INPUT PARA NOVO COMENTÁRIO */
 .comment-input-area {
-    padding: 15px 20px 25px 20px;
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    padding: 15px 20px calc(15px + env(safe-area-inset-bottom)) 20px;
     border-top: 1px solid #333;
-    display: flex;
-    gap: 12px;
+    display: flex; gap: 12px;
     background-color: #1a1a1a;
 }
 
 .comment-input-area input {
-    flex: 1;
-    padding: 14px 20px;
-    border-radius: 30px;
-    border: 1px solid #333;
-    background: #2a2a2a;
-    color: white;
-    outline: none;
-    font-size: 0.95rem;
-    transition: border-color 0.3s;
+    flex: 1; padding: 14px 20px; border-radius: 30px;
+    border: 1px solid #333; background: #2a2a2a; color: white;
+    outline: none; font-size: 0.95rem;
 }
-.comment-input-area input:focus { border-color: #1976d2; }
 
 .comment-input-area button {
     background: linear-gradient(135deg, #25D366, #1da851);
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;
-    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-    transition: transform 0.2s;
+    border: none; width: 48px; height: 48px; border-radius: 50%;
+    color: white; cursor: pointer; display: flex;
+    justify-content: center; align-items: center; font-size: 22px;
 }
-.comment-input-area button:active { transform: scale(0.9); }
 
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    backdrop-filter: blur(3px);
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 999; opacity: 0;
+    pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(3px);
 }
-
 .modal-overlay.active { opacity: 1; pointer-events: all; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* =========================================
-    RESPONSIVIDADE (Telas Menores)
+   RESPONSIVIDADE INTELIGENTE (Ecrãs Menores)
    ========================================= */
 @media (max-width: 768px) {
     .hide-mobile { display: none; }
+    .top-navbar { padding: env(safe-area-inset-top) 15px 0 15px; height: 60px; }
+    
+    /* Ajusta a barra de pesquisa para não quebrar em ecrãs pequenos */
     .nav-center { padding: 0 10px; }
-    .search-bar { padding: 8px 15px; }
-    .user-menu { padding-left: 10px; gap: 10px; }
-    .btn-anunciar { padding: 8px 12px; border-radius: 50%; }
+    .search-bar { padding: 8px 12px; }
+    .search-bar input { font-size: 0.85rem; }
+    
+    .user-menu { padding-left: 10px; gap: 10px; border-left: none; }
+    .btn-anunciar { padding: 8px; border-radius: 50%; width: 38px; height: 38px; }
+    .btn-anunciar i { font-size: 1.4rem; margin: 0; }
+    
+    .feed-container { border: none; max-width: 100%; }
+    
+    /* Ajustes para evitar que o texto encoste muito nas bordas em telemóveis mais estreitos */
+    .product-info { max-width: 70%; left: 15px; }
+    .product-info h2 { font-size: 1.3rem; }
+    .product-price { font-size: 1.3rem; }
+    
+    .actions-sidebar { right: 10px; gap: 18px; }
+    .action-btn i { font-size: 30px; }
+    .seller-profile img { width: 42px; height: 42px; }
 }

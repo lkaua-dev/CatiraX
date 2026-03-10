@@ -9,13 +9,6 @@ const btnLogout = document.getElementById("btnLogout");
 const userAvatar = document.getElementById("userAvatar");
 
 if (usuarioLogado) {
-    // EXTRAI PRIMEIRO NOME DO USUÁRIO
-    const nomeCompleto = usuarioLogado.nome_completo || usuarioLogado.nome || "Usuário";
-    const primeiroNome = nomeCompleto.split(" ")[0];
-
-    welcomeMsg.innerText = `CatiraX | Olá, ${primeiroNome}`;
-
-  
     // GERA AVATAR COM INICIAIS DO PRIMEIRO NOME
     userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=1976d2&color=fff&bold=true`;
 }
