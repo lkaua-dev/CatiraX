@@ -21,7 +21,34 @@ Antes de começar, você precisa ter instalado na sua máquina:
 4. **VS Code** (Editor recomendado).
 5. **Conta Gmail** (Com "Senha de Aplicativo" gerada para envio de e-mails).
 
+## 🧪 Ambiente Virtual (Recomendado)
 
+Criar um ambiente virtual evita conflitos de dependências e mantém seu projeto isolado. Se você não fizer isso, vai acabar misturando biblioteca de tudo quanto é projeto e uma hora quebra.
+
+### Criar o ambiente virtual
+No terminal, dentro da pasta do projeto:
+```bash
+python -m venv venv
+```
+### Ativar o ambiente virtual
+Windows:
+```bash
+venv\Scripts\activate
+```
+Linux/Mac:
+```bash
+source venv/bin/activate
+```
+
+Se ativou certo, vai aparecer (venv) no começo do terminal.
+### Instalar as dependências dentro do ambiente
+```bash
+pip install flask mysql-connector-python flask-cors Flask-Mail
+```
+### Desativar o ambiente (quando quiser sair)
+```bash
+deactivate
+````
 
 ## 🔧 Passo a Passo de Instalação
 
@@ -59,6 +86,7 @@ CREATE TABLE IF NOT EXISTS img (
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
     valor DECIMAL(15, 2), -- Suporta valores até 99.999.999,99
+    celular_vendedor VARCHAR(20),
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -93,21 +121,6 @@ SELECT * FROM img ORDER BY data_hora DESC;
 
 -- Ver todos os utilizadores
 SELECT * FROM usuario;
-
--- Ver comentários de um produto específico (substituir o ?)
--- SELECT 
---     u.nome_completo AS Autor, 
---     c.mensagem AS Comentario, 
---     DATE_FORMAT(c.data_hora, '%d/%m/%Y às %H:%i') AS Data_Formatada
--- FROM comentarios c
--- JOIN usuario u ON u.id = c.usuario_id
--- WHERE c.img_id = ? 
--- ORDER BY c.data_hora DESC;
-
--- Limpar tabelas para novos testes (Cuidado!)
--- TRUNCATE TABLE favoritos;
--- TRUNCATE TABLE comentarios;
--- SET FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE img; SET FOREIGN_KEY_CHECKS = 1;
 ```
 ---
 ### 3. Instalar Dependências do Python
@@ -148,7 +161,7 @@ python app.py
 <br>
 <div align="center">
 
-⚠️ **AVISO IMPORTANTE**  
+⚠️ **AVISO IMPORTANTE** ⚠️  
 🚫 **ACESSO EXTERNO NÃO SUPORTADO EM REDES PRIVADAS** 🚫
 
 

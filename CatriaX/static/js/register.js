@@ -29,7 +29,7 @@ telefoneInput.addEventListener("input", (e) => {
     if (v.length > 9) {
         v = v.replace(/(\d{5})(\d)/, '$1-$2');
     } else if (v.length > 8) {
-        v = v.replace(/(\d{4})(\d)/, '$1-$2'); 
+        v = v.replace(/(\d{4})(\d)/, '$1-$2');
     }
     e.target.value = v;
 });
@@ -52,7 +52,7 @@ function mostrarErro(mensagem, inputsErro = []) {
     }, 3000);
 
     inputsErro.forEach(input => {
-        if(input) {
+        if (input) {
             input.style.borderColor = '#ff4d4d';
             setTimeout(() => input.style.borderColor = '', 2000);
         }
@@ -165,34 +165,34 @@ form.addEventListener("submit", (evento) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
     })
-    // TRATA RESPOSTA DO SERVIDOR
-    .then(async res => {
-        const resultado = await res.json();
-        
-        if (!res.ok) {
-            throw new Error(resultado.error || "Erro desconhecido no servidor");
-        }
-        
-        return resultado;
-    })
-    // SE CADASTROU COM SUCESSO
-    .then(() => {
-        mostrarSucesso("Cadastro realizado com sucesso!");
-        form.reset();
-        
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 2000);
-    })
-    // TRATA ERRO
-    .catch(erro => {
-        console.error(erro);
-        mostrarErro(erro.message || "Erro ao conectar com o servidor.");
-    })
-    .finally(() => {
-        btnSubmit.innerHTML = textoOriginal;
-        btnSubmit.style.opacity = "1";
-        btnSubmit.style.cursor = "pointer";
-        btnSubmit.disabled = false;
-    });
+        // TRATA RESPOSTA DO SERVIDOR
+        .then(async res => {
+            const resultado = await res.json();
+
+            if (!res.ok) {
+                throw new Error(resultado.error || "Erro desconhecido no servidor");
+            }
+
+            return resultado;
+        })
+        // SE CADASTROU COM SUCESSO
+        .then(() => {
+            mostrarSucesso("Cadastro realizado com sucesso!");
+            form.reset();
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        })
+        // TRATA ERRO
+        .catch(erro => {
+            console.error(erro);
+            mostrarErro(erro.message || "Erro ao conectar com o servidor.");
+        })
+        .finally(() => {
+            btnSubmit.innerHTML = textoOriginal;
+            btnSubmit.style.opacity = "1";
+            btnSubmit.style.cursor = "pointer";
+            btnSubmit.disabled = false;
+        });
 });

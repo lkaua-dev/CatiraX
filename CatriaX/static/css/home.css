@@ -166,8 +166,15 @@ main {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================
@@ -289,6 +296,7 @@ main {
     font-size: 1.2rem;
     transition: transform 0.3s;
 }
+
 .btn-acao1:hover::after {
     transform: translateX(5px);
 }
@@ -323,15 +331,36 @@ main {
     animation: surgir 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animando .badge { animation-delay: 0.1s; }
-.animando h2 { animation-delay: 0.2s; }
-.animando p { animation-delay: 0.3s; }
-.animando .btn-acao1 { animation-delay: 0.4s; }
-.animando .team-stats { animation-delay: 0.4s; }
+.animando .badge {
+    animation-delay: 0.1s;
+}
+
+.animando h2 {
+    animation-delay: 0.2s;
+}
+
+.animando p {
+    animation-delay: 0.3s;
+}
+
+.animando .btn-acao1 {
+    animation-delay: 0.4s;
+}
+
+.animando .team-stats {
+    animation-delay: 0.4s;
+}
 
 @keyframes surgir {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================
@@ -402,6 +431,7 @@ main {
     gap: 30px;
     width: 100%;
 }
+
 /* CARD DE META/FUNCIONALIDADE */
 .meta-card {
     background: #ffffff;
@@ -558,21 +588,28 @@ main {
    RESPONSIVIDADE
    ========================================== */
 @media (max-width: 992px) {
-    .split-container, .split-reverse {
+
+    .split-container,
+    .split-reverse {
         flex-direction: column;
         text-align: center;
         gap: 40px;
     }
+
     .split-text {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     .team-stats {
         flex-direction: column;
         gap: 20px;
     }
-    .split-image { width: 100%; }
+
+    .split-image {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -582,6 +619,14 @@ main {
         padding: 20px;
         gap: 15px;
     }
-    nav { gap: 15px; flex-wrap: wrap; justify-content: center; }
-    .split-text h2 { font-size: 2.2rem; }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .split-text h2 {
+        font-size: 2.2rem;
+    }
 }

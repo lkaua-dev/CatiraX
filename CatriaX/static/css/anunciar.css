@@ -15,15 +15,20 @@
 }
 
 * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
 body {
     background-color: var(--fundo);
     color: var(--texto);
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 /* ==========================================
@@ -32,33 +37,61 @@ body {
 /* CENTRALIZA E ESTILIZA A CAIXA DO FORMULÁRIO */
 .container {
     background: var(--caixa);
-    padding: 40px; border-radius: 24px;
-    width: 100%; max-width: 550px;
+    padding: 40px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 550px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     border: 1px solid var(--borda);
 }
 
-.header { text-align: center; margin-bottom: 30px; }
-.header h2 { color: white; margin-bottom: 5px; }
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    color: white;
+    margin-bottom: 5px;
+}
 
 .back-link {
-    color: var(--primaria); cursor: pointer; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 5px; margin-bottom: 15px;
+    color: var(--primaria);
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
 }
 
 /* ==========================================
    CAMPOS DE ENTRADA DO FORMULÁRIO
    ========================================== */
 /* ESPAÇAMENTO E ESTILO DOS INPUTS */
-.input-group { margin-bottom: 20px; position: relative; }
-label { display: block; margin-bottom: 8px; color: white; font-weight: 500; font-size: 0.9rem; }
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
 
 /* ESTILO COMUM DE INPUTS E TEXTAREA */
-input, textarea {
-    width: 100%; padding: 14px;
+input,
+textarea {
+    width: 100%;
+    padding: 14px;
     background: var(--input-fundo);
     border: 2px solid var(--borda);
-    border-radius: 12px; color: white; outline: none;
+    border-radius: 12px;
+    color: white;
+    outline: none;
     transition: all 0.2s;
 }
 
@@ -69,12 +102,17 @@ textarea {
 }
 
 /* DESTACA CAMPOS COM ERRO EM VERMELHO */
-input.campo-invalido, textarea.campo-invalido, .file-upload.campo-invalido {
+input.campo-invalido,
+textarea.campo-invalido,
+.file-upload.campo-invalido {
     border-color: var(--erro) !important;
     box-shadow: 0 0 8px rgba(255, 77, 77, 0.2);
 }
 
-input:focus, textarea:focus { border-color: var(--primaria); }
+input:focus,
+textarea:focus {
+    border-color: var(--primaria);
+}
 
 /* ==========================================
    UPLOAD DE IMAGEM COM PREVIEW
@@ -82,19 +120,41 @@ input:focus, textarea:focus { border-color: var(--primaria); }
 /* ÁREA PARA SELECIONAR E VISUALIZAR FOTO */
 .file-upload {
     border: 2px dashed var(--borda);
-    padding: 25px; text-align: center; border-radius: 12px;
-    cursor: pointer; background: #1a1a1a; transition: 0.3s;
+    padding: 25px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #1a1a1a;
+    transition: 0.3s;
 }
 
 /* ÁREA E IMAGEM DE VISUALIZAÇÃO PRÉVIA */
-#previewContainer { position: relative; margin-top: 15px; display: none; }
-#preview { width: 100%; border-radius: 12px; max-height: 200px; object-fit: cover; }
+#previewContainer {
+    position: relative;
+    margin-top: 15px;
+    display: none;
+}
+
+#preview {
+    width: 100%;
+    border-radius: 12px;
+    max-height: 200px;
+    object-fit: cover;
+}
 
 /* BOTÃO PARA REMOVER IMAGEM SELECIONADA */
 .remove-img {
-    position: absolute; top: 10px; right: 10px;
-    background: var(--erro); color: white; border-radius: 50%;
-    width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--erro);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 
@@ -103,39 +163,79 @@ input:focus, textarea:focus { border-color: var(--primaria); }
    ========================================== */
 /* BOTÃO DESTACADO PARA PUBLICAR ANÚNCIO */
 .btn-submit {
-    width: 100%; padding: 16px; border: none; border-radius: 12px;
-    background: var(--primaria-gradiente); color: white;
-    font-weight: 700; font-size: 1rem; cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: 0.3s;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: var(--primaria-gradiente);
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
 }
 
-.btn-submit:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.btn-submit:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
 
 /* ==========================================
    NOTIFICAÇÕES (TOASTS) NA TELA
    ========================================== */
 /* MENSAGENS FLUTUANTES DE SUCESSO OU ERRO */
 #toastContainer {
-    position: fixed; top: 20px; right: 20px;
-    z-index: 10000; display: flex; flex-direction: column; gap: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .toast {
-    min-width: 280px; padding: 15px 20px; border-radius: 10px;
-    color: white; display: flex; align-items: center; gap: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    min-width: 280px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     animation: toastIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.toast.sucesso { background: #2ecc71; border-left: 6px solid #27ae60; }
-.toast.erro { background: #e74c3c; border-left: 6px solid #c0392b; }
-
-@keyframes toastIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+.toast.sucesso {
+    background: #2ecc71;
+    border-left: 6px solid #27ae60;
 }
 
-.toast-out { animation: toastOut 0.4s ease forwards; }
+.toast.erro {
+    background: #e74c3c;
+    border-left: 6px solid #c0392b;
+}
+
+@keyframes toastIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.toast-out {
+    animation: toastOut 0.4s ease forwards;
+}
+
 @keyframes toastOut {
-    to { transform: translateX(100%); opacity: 0; }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }

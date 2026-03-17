@@ -11,32 +11,27 @@
 
 <body class="feed-body">
 
-    <!-- ==========================================
-         BARRA DE NAVEGAÇÃO SUPERIOR
-         ========================================== -->
     <nav class="top-navbar">
-        <!-- LOGO E SAUDAÇÃO DE BEM-VINDO -->
         <div class="nav-left">
             <h3 class="brand-logo" id="welcomeMsg">CatiraX</h3>
         </div>
 
-        <!-- BARRA DE BUSCA CENTRALIZADA -->
         <div class="nav-center">
-            <div class="search-bar">
+            <div class="search-bar" title="Buscar">
                 <i class='bx bx-search'></i>
-                <input type="text" placeholder="Buscar produtos, marcas...">
             </div>
         </div>
 
-        <!-- BOTÕES DE AÇÃO E PERFIL DO USUÁRIO -->
         <div class="nav-right">
             <a href="anunciar.html" class="btn-anunciar">
-                <i class='bx bxs-camera-plus'></i> <span class="hide-mobile">Anunciar</span>
+                <span class="gradient-text">
+                    <i class='bx bxs-camera-plus'></i> <span class="hide-mobile">Anunciar</span>
+                </span>
             </a>
 
             <div class="user-menu">
-                <img src="[https://ui-avatars.com/api/?name=U&background=1976d2&color=fff](https://ui-avatars.com/api/?name=U&background=1976d2&color=fff)"
-                    alt="Perfil" id="userAvatar" class="profile-img">
+                <img src="https://ui-avatars.com/api/?name=U&background=1976d2&color=fff" alt="Perfil" id="userAvatar"
+                    class="profile-img">
                 <button id="btnLogout" class="btn-sair" title="Sair da Conta">
                     <i class='bx bx-log-out'></i>
                 </button>
@@ -44,13 +39,9 @@
         </div>
     </nav>
 
-    <!-- ==========================================
-         ÁREA DO FEED COM PRODUTOS
-         ========================================== -->
     <div class="feed-wrapper">
         <div class="feed-container">
 
-            <!-- PRODUTO 1: IPHONE -->
             <div class="product-card"
                 style="background-image: url('/CatriaX/static/img/iphone.png'); background-color: #1a1a1a;">
                 <div class="overlay-gradient"></div>
@@ -72,15 +63,16 @@
                         <i class='bx bxs-message-rounded-dots'></i>
                         <span class="comment-count">12</span>
                     </div>
-                    <div class="action-btn whatsapp-btn">
+                    <div class="action-btn whatsapp-btn"
+                        onclick="iniciarConversa('${produto.celular}', '${produto.titulo}')">
                         <i class='bx bxl-whatsapp'></i>
                         <span>Negociar</span>
                     </div>
                 </div>
             </div>
 
-            <!-- PRODUTO 2: TÊNIS -->
-            <div class="product-card" style="background-image: url('/CatriaX/static/img/nike.png'); background-color: #222;">
+            <div class="product-card"
+                style="background-image: url('/CatriaX/static/img/nike.png'); background-color: #222;">
                 <div class="overlay-gradient"></div>
                 <div class="product-info">
                     <h2>Nike Jordan High</h2>
@@ -99,14 +91,14 @@
                         <i class='bx bxs-message-rounded-dots'></i>
                         <span class="comment-count">89</span>
                     </div>
-                    <div class="action-btn whatsapp-btn">
+                    <div class="action-btn whatsapp-btn"
+                        onclick="iniciarConversa('${produto.celular}', '${produto.titulo}')">
                         <i class='bx bxl-whatsapp'></i>
                         <span>Negociar</span>
                     </div>
                 </div>
             </div>
 
-            <!-- PRODUTO 3: SETUP GAMER -->
             <div class="product-card"
                 style="background-image: url('/CatriaX/static/img/pcgamer.png'); background-color: #111;">
                 <div class="overlay-gradient"></div>
@@ -128,7 +120,8 @@
                         <i class='bx bxs-message-rounded-dots'></i>
                         <span class="comment-count">42</span>
                     </div>
-                    <div class="action-btn whatsapp-btn">
+                    <div class="action-btn whatsapp-btn"
+                        onclick="iniciarConversa('${produto.celular}', '${produto.titulo}')">
                         <i class='bx bxl-whatsapp'></i>
                         <span>Negociar</span>
                     </div>
@@ -138,9 +131,6 @@
         </div>
     </div>
 
-    <!-- ==========================================
-         MODAL DE COMENTÁRIOS (SHEET INFERIOR)
-         ========================================== -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeComments()"></div>
     <div class="comments-sheet" id="commentsSheet">
         <div class="sheet-header">
@@ -174,7 +164,6 @@
             <button onclick="postComment()"><i class='bx bxs-send'></i></button>
         </div>
     </div>
-
 
     <script src="/CatriaX/static/js/index.js"></script>
 </body>

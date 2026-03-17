@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const targetId = botao.getAttribute('data-target');
             if (!targetId) return;
 
-            if(botao.tagName === 'A') e.preventDefault();
+            if (botao.tagName === 'A') e.preventDefault();
 
             // MARCA QUAL LINK DO MENU ESTÁ ATIVO
             linksMenu.forEach(link => link.classList.remove('ativo'));

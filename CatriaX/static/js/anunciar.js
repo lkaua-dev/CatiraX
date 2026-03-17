@@ -33,7 +33,7 @@ function mostrarToast(mensagem, tipo = 'sucesso') {
 // ==========================================
 
 // FORMATA VALOR EM REAIS ENQUANTO USUÁRIO DIGITA
-valorInput.addEventListener('input', function(e) {
+valorInput.addEventListener('input', function (e) {
     let value = e.target.value.replace(/\D/g, "");
 
     if (value === "") {
@@ -58,7 +58,7 @@ valorInput.addEventListener('input', function(e) {
 // ==========================================
 
 // CARREGA IMAGEM SELECIONADA E MOSTRA PREVIEW
-fotoInput.addEventListener('change', function() {
+fotoInput.addEventListener('change', function () {
     const file = this.files[0];
     if (file) {
         // CONVERTE ARQUIVO PARA URL DATA PARA EXIBIÇÃO
@@ -120,6 +120,12 @@ formAnuncio.addEventListener('submit', async (e) => {
     formData.append('valor', valorLimpo);
     formData.append('descricao', document.getElementById('descricao').value);
 
+    // ADICIONA CELULAR DO VENDEDOR LOGADO
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (usuarioLogado && usuarioLogado.celular) {
+        formData.append('celular_vendedor', usuarioLogado.celular);
+    }
+
     // ENVIA ANÚNCIO PARA O SERVIDOR PYTHON
     try {
         const response = await fetch('http://localhost:5000/anunciar', {
@@ -132,7 +138,8 @@ formAnuncio.addEventListener('submit', async (e) => {
             mostrarToast("✨ Anúncio publicado com sucesso!");
 
             setTimeout(() => {
-                window.location.href = 'index.html';
+                // RECARREGA A PÁGINA DO FEED PARA MOSTRAR O NOVO ANÚNCIO
+                window.location.href = 'index.html?reload=' + Date.now();
             }, 3000);
         } else {
             // SE TEVE ERRO NA RESPOSTA DO SERVIDOR

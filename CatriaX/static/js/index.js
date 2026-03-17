@@ -13,9 +13,9 @@ if (usuarioLogado) {
     const nomeCompleto = usuarioLogado.nome_completo || usuarioLogado.nome || "Usuário";
     const primeiroNome = nomeCompleto.split(" ")[0];
 
-    welcomeMsg.innerText = `CatiraX | Olá, ${primeiroNome}`;
+    welcomeMsg.innerText = `CatiraX`;
 
-  
+
     // GERA AVATAR COM INICIAIS DO PRIMEIRO NOME
     userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=1976d2&color=fff&bold=true`;
 }
@@ -178,24 +178,44 @@ async function carregarAnunciosDoBanco() {
     const container = document.querySelector('.feed-container');
     const avatarSrc = userAvatar ? userAvatar.src : 'https://ui-avatars.com/api/?name=U&background=1976d2&color=fff';
 
+    // URL BASE DO SERVIDOR API (ONDE AS IMAGENS ESTÃO HOSPEDADAS)
+    const apiUrl = 'http://localhost:5000';
+
     try {
+        console.log("🔄 Carregando anúncios...");
+
         // BUSCA LISTA DE PRODUTOS DO SERVIDOR PYTHON
-        const response = await fetch('http://localhost:5000/produtos');
+        const response = await fetch(`${apiUrl}/produtos`);
 
         if (!response.ok) {
-            throw new Error("Falha ao buscar os dados do banco.");
+            throw new Error(`Erro ${response.status}: Falha ao buscar os dados do banco.`);
         }
 
         // RECEBE ARRAY DE PRODUTOS EM JSON
         const produtosDB = await response.json();
+        console.log(`✅ ${produtosDB.length} produtos carregados`);
+
+        if (produtosDB.length === 0) {
+            console.log("⚠️ Nenhum produto no banco");
+            // NÃO LIMPA O CONTAINER - MANTÉM OS PRODUTOS PADRÃO
+            return;
+        }
+
+        // PEGA O PRIMEIRO CARD PADRÃO PARA INSERIR NOVOS ANTES DELE
+        const primeiroCardPadrao = container.querySelector('.product-card');
 
         // CRIA CARD PARA CADA PRODUTO
         produtosDB.forEach(produto => {
             const card = document.createElement('div');
             card.classList.add('product-card');
 
+            // CONSTRÓI URL COMPLETA DA IMAGEM (ADICIONA BASE URL)
+            const imagemUrl = produto.url.startsWith('http')
+                ? produto.url
+                : `${apiUrl}${produto.url}`;
+
             // DEFINE IMAGEM DE FUNDO DO CARD
-            card.style.backgroundImage = `url('${produto.url}')`;
+            card.style.backgroundImage = `url('${imagemUrl}')`;
             card.style.backgroundColor = '#1a1a1a';
 
             // FORMATA VALOR PARA MOEDA BRASILEIRA (R$ 00,00)
@@ -223,21 +243,52 @@ async function carregarAnunciosDoBanco() {
                         <i class='bx bxs-message-rounded-dots'></i>
                         <span class="comment-count">0</span>
                     </div>
-                    <div class="action-btn whatsapp-btn">
+                    <div class="action-btn whatsapp-btn" onclick="iniciarConversa('${produto.celular_vendedor}', '${produto.titulo}')" style="cursor: pointer;">
                         <i class='bx bxl-whatsapp'></i>
                         <span>Negociar</span>
                     </div>
                 </div>
             `;
 
-            container.appendChild(card);
+            // INSERE O NOVO CARD NO TOPO (ANTES DOS PRODUTOS PADRÃO)
+            if (primeiroCardPadrao) {
+                container.insertBefore(card, primeiroCardPadrao);
+            } else {
+                container.appendChild(card);
+            }
         });
 
-    // CASO HAJA ERRO NA BUSCA DOS DADOS
+        // CASO HAJA ERRO NA BUSCA DOS DADOS
     } catch (error) {
-        console.error("Erro ao carregar do banco:", error);
+        console.error("❌ Erro ao carregar do banco:", error);
+        container.innerHTML = `<p style="color: red; text-align: center; padding: 20px;">⚠️ Erro ao carregar produtos. Servidor offline?</p>`;
     }
 }
 
 // CARREGA ANÚNCIOS QUANDO A PÁGINA INICIA
 document.addEventListener('DOMContentLoaded', carregarAnunciosDoBanco);
+
+
+// ==========================================
+// Whatzapp - ABRIR CONVERSA COM VENDEDOR
+// ==========================================
+
+function iniciarConversa(celular, titulo) {
+    // VALIDA SE O CELULAR FOI CAPTURADO
+    if (!celular || celular === 'undefined' || celular === null) {
+        alert('⚠️ Celular do vendedor não disponível.');
+        return;
+    }
+
+    const numeroLimpo = celular.replace(/\D/g, '');
+
+    // VALIDA SE O NÚMERO TEM PELO MENOS 10 DÍGITOS (VÁLIDO NO BRASIL)
+    if (numeroLimpo.length < 10) {
+        alert('⚠️ Número de celular inválido.');
+        return;
+    }
+
+    const mensagem = encodeURIComponent(`Olá! Vi seu anúncio "${titulo}" no CatiraX e tenho interesse.`);
+    const whatsappLink = `https://wa.me/55${numeroLimpo}?text=${mensagem}`;
+    window.open(whatsappLink, '_blank');
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,58 +9,61 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/CatriaX/static/css/anunciar.css">
 </head>
+
 <body class="dark-theme">
 
-<div class="container">
-    <div class="header">
-        <div class="back-link" onclick="window.location.href='index.html'">
-            <i class='bx bx-left-arrow-alt'></i> Voltar ao Feed
-        </div>
-        <h2><i class='bx bxs-camera-plus'></i> Criar Novo Anúncio</h2>
-        <p>Preencha os campos obrigatórios para publicar.</p>
-    </div>
-    
-    <form id="formAnuncio" novalidate>
-        
-        <div class="input-group">
-            <label>Foto do Produto *</label>
-            
-            <div id="dropZone" class="file-upload" onclick="document.getElementById('foto').click()">
-                <i class='bx bx-cloud-upload' style='font-size: 40px; color: var(--primaria);'></i>
-                <p>Clique aqui para selecionar uma imagem</p>
+    <div class="container">
+        <div class="header">
+            <div class="back-link" onclick="window.location.href='index.html'">
+                <i class='bx bx-left-arrow-alt'></i> Voltar ao Feed
             </div>
-            
-            <input type="file" id="foto" accept="image/*" style="display: none;">
+            <h2><i class='bx bxs-camera-plus'></i> Criar Novo Anúncio</h2>
+            <p>Preencha os campos obrigatórios para publicar.</p>
+        </div>
 
-            <div id="previewContainer" style="display: none;">
-                <img id="preview" src="" alt="Preview">
-                <div id="removeImg" class="remove-img" title="Remover imagem">
-                    <i class='bx bx-x'></i>
+        <form id="formAnuncio" novalidate>
+
+            <div class="input-group">
+                <label>Foto do Produto *</label>
+
+                <div id="dropZone" class="file-upload" onclick="document.getElementById('foto').click()">
+                    <i class='bx bx-cloud-upload' style='font-size: 40px; color: var(--primaria);'></i>
+                    <p>Clique aqui para selecionar uma imagem</p>
+                </div>
+
+                <input type="file" id="foto" accept="image/*" style="display: none;">
+
+                <div id="previewContainer" style="display: none;">
+                    <img id="preview" src="" alt="Preview">
+                    <div id="removeImg" class="remove-img" title="Remover imagem">
+                        <i class='bx bx-x'></i>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="input-group">
-            <label>Título *</label>
-            <input type="text" id="titulo" placeholder="Ex: iPhone 15 Pro Max em bom estado">
-        </div>
+            <div class="input-group">
+                <label>Título *</label>
+                <input type="text" id="titulo" placeholder="Ex: iPhone 15 Pro Max em bom estado">
+            </div>
 
-        <div class="input-group">
-            <label>Valor (Máx: R$ 8.000.000,00) *</label>
-            <input type="text" id="valor" placeholder="R$ 0,00">
-        </div>
+            <div class="input-group">
+                <label>Valor (Máx: R$ 8.000.000,00) *</label>
+                <input type="text" id="valor" placeholder="R$ 0,00">
+            </div>
 
-        <div class="input-group">
-            <label>Descrição Detalhada</label>
-            <textarea id="descricao" rows="4" placeholder="Conte mais sobre o produto, tempo de uso ou se aceita trocas..."></textarea>
-        </div>
+            <div class="input-group">
+                <label>Descrição Detalhada</label>
+                <textarea id="descricao" rows="4"
+                    placeholder="Conte mais sobre o produto, tempo de uso ou se aceita trocas..."></textarea>
+            </div>
 
-        <button type="submit" id="btnEnviar" class="btn-submit">Publicar Agora</button>
-    </form>
-</div>
+            <button type="submit" id="btnEnviar" class="btn-submit">Publicar Agora</button>
+        </form>
+    </div>
 
-<div id="toastContainer"></div>
+    <div id="toastContainer"></div>
 
-<script src="/CatriaX/static/js/anunciar.js"></script>
+    <script src="/CatriaX/static/js/anunciar.js"></script>
 </body>
+
 </html>

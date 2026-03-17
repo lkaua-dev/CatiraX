@@ -207,7 +207,6 @@ body {
 /* =========================================
    FORMULÁRIOS E BOTÕES
    ========================================= */
-/* CAMPOS DE ENTRADA COM ÍCONES E VALIDAÇÃO */
 .input-group {
     margin-bottom: 1.5rem;
     text-align: left;
@@ -229,7 +228,6 @@ body {
     align-items: center;
 }
 
-/* ÍCONE DENTRO DO CAMPO DE ENTRADA */
 .input-wrapper svg {
     position: absolute;
     left: 14px;
@@ -242,7 +240,6 @@ body {
 .input-group input {
     width: 100%;
     padding: 14px 14px 14px 45px;
-    /* Espaço para o ícone */
     border: 2px solid #e3f2fd;
     border-radius: 12px;
     font-size: 1rem;
@@ -266,7 +263,6 @@ body {
 /* =========================================
    BOTÃO DE AUTENTICAÇÃO
    ========================================= */
-/* BOTÃO COM GRADIENTE E EFEITO HOVER */
 .btn-auth {
     width: 100%;
     padding: 14px;
@@ -313,7 +309,6 @@ body {
 /* =========================================
    LINKS DE NAVEGAÇÃO RÁPIDA
    ========================================= */
-/* LINKS COM EFEITO SUBLINHADO ANIMADO */
 .auth-links-container {
     display: flex;
     flex-direction: column;
@@ -348,4 +343,37 @@ body {
 
 .auth-box a:hover::after {
     width: 100%;
+}
+
+/* ==========================================
+    ADIÇÕES PARA RESPONSIVIDADE (MOBILE)
+   ========================================== */
+@media (max-width: 768px) {
+    body {
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+        padding: 20px 0;
+    }
+
+    .auth-box {
+        padding: 2rem 1.5rem !important;
+    }
+
+    form>div[style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+
+    .input-group[style*="grid-column: 1 / -1;"] {
+        grid-column: 1 !important;
+    }
+
+    .auth-box h2 {
+        font-size: 1.6rem !important;
+    }
+
+    .input-group input {
+        font-size: 0.95rem;
+    }
 }
