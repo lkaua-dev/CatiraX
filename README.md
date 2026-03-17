@@ -133,7 +133,7 @@ pip install flask mysql-connector-python flask-cors Flask-Mail
 Abra o arquivo app.py e verifique a função de conexão. Se a sua senha do MySQL não for "root", altere a linha abaixo:
 ```bash
 # Procure por esta parte e coloque sua senha do MySQL
-password='root',  # <--- Sua senha do MySQL
+password='123456',  # <--- Sua senha do MySQL
 ```
 ### Para o Envio de E-mail (Gmail): Você precisa gerar uma "Senha de App" na sua conta Google.
 ```bash
