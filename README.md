@@ -43,7 +43,7 @@ source venv/bin/activate
 Se ativou certo, vai aparecer (venv) no começo do terminal.
 ### Instalar as dependências dentro do ambiente
 ```bash
-pip install flask mysql-connector-python flask-cors Flask-Mail
+pip install -r requirements.txt
 ```
 ### Desativar o ambiente (quando quiser sair)
 ```bash
