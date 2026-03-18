@@ -1,12 +1,15 @@
+-- RESET TOTAL (apaga tudo)
+DROP DATABASE IF EXISTS RGA_princp;
+
 -- 1. CRIAR A BASE DE DADOS
-CREATE DATABASE IF NOT EXISTS RGA_princp 
+CREATE DATABASE RGA_princp
 CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
 
 USE RGA_princp;
 
--- 2. TABELA DE UTILIZADORES (USUARIO)
-CREATE TABLE IF NOT EXISTS usuario (
+-- 2. TABELA DE USUÁRIOS
+CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_completo VARCHAR(255) NOT NULL,
     celular VARCHAR(20) NOT NULL,      
@@ -16,19 +19,19 @@ CREATE TABLE IF NOT EXISTS usuario (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 3. TABELA DE IMAGENS / PRODUTOS (IMG)
-CREATE TABLE IF NOT EXISTS img (
+-- 3. TABELA DE ANÚNCIOS (IMG)
+CREATE TABLE img (
     id INT AUTO_INCREMENT PRIMARY KEY,
     url VARCHAR(255) NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
-    valor DECIMAL(15, 2), -- Suporta valores até 99.999.999,99
-    celular_vendedor VARCHAR(20),
+    valor DECIMAL(15, 2),
+    celular_vendedor VARCHAR(20) NOT NULL,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 4. TABELA DE FAVORITOS
-CREATE TABLE IF NOT EXISTS favoritos (
+CREATE TABLE favoritos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     img_id INT NOT NULL,
@@ -36,10 +39,10 @@ CREATE TABLE IF NOT EXISTS favoritos (
     UNIQUE (usuario_id, img_id),
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (img_id) REFERENCES img(id) ON DELETE CASCADE
-); 
+);
 
 -- 5. TABELA DE COMENTÁRIOS
-CREATE TABLE IF NOT EXISTS comentarios (
+CREATE TABLE comentarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     img_id INT NOT NULL,
