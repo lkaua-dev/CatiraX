@@ -119,6 +119,8 @@ CREATE TABLE comentarios (
 -- CONSULTAS ÚTEIS PARA TESTES
 -- ======================================================
 
+insert into usuario(nome_completo,celular,cpf,email,senha) values ('Adm','31985812406','02206349539','adm123@gmail.com','Adm123456');
+
 -- Ver todos os produtos anunciados
 SELECT * FROM img ORDER BY data_hora DESC;
 

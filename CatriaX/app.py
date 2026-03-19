@@ -46,7 +46,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="123456",
+        password="root",
         database="RGA_princp",
     )
 
