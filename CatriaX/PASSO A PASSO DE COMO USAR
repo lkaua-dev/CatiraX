@@ -1,0 +1,99 @@
+📖 PASSO A PASSO: COMO CONFIGURAR E RODAR O PROJETO CATIRAX
+Siga as instruções abaixo exatamente na ordem para que tudo funcione de primeira.
+
+1. Preparação Inicial (Verifique antes de começar)
+Você vai precisar ter estes programas instalados no seu computador:
+
+Python 3 (Lembre-se de marcar a caixinha "Add Python to PATH" durante a instalação).
+
+MySQL Server e MySQL Workbench (Lembre-se da senha que você criar para o usuário 'root').
+
+Git (Para baixar o projeto).
+
+VS Code (Nosso editor de código).
+
+2. Baixando (Clonando) o Projeto
+Crie uma pasta vazia no seu computador onde você quer que o projeto fique (ex: C:\Projetos).
+
+Abra o VS Code.
+
+No VS Code, vá no menu superior em File > Open Folder... (Arquivo > Abrir Pasta...) e selecione a pasta que você acabou de criar.
+
+Agora, abra o terminal do VS Code: Vá no menu superior e clique em Terminal > New Terminal (Ou use o atalho Ctrl + ' no teclado).
+
+No terminal que abriu na parte de baixo da tela, digite o comando abaixo e aperte ENTER:
+git clone https://github.com/lkaua-dev/CatiraX.git
+
+O código será baixado. Agora, entre na pasta do projeto digitando no terminal:
+cd CatiraX e aperte ENTER.
+
+3. Configurando o Ambiente Virtual (Para não quebrar seu PC)
+Isso serve para instalar as bibliotecas do projeto em um "quadradinho isolado" e não bagunçar o seu Python.
+
+No mesmo terminal do VS Code (certifique-se de que está dentro da pasta CatiraX), digite:
+python -m venv venv e aperte ENTER. (Aguarde uns segundos, ele vai criar uma pasta chamada 'venv').
+
+Agora, ative esse ambiente:
+
+Se estiver no Windows: Digite venv\Scripts\activate e aperte ENTER.
+
+Se estiver no Linux/Mac: Digite source venv/bin/activate e aperte ENTER.
+(Se deu certo, vai aparecer um (venv) verde no começo da linha do seu terminal).
+
+Com o ambiente ativado, instale tudo que o projeto precisa digitando:
+pip install -r requirements.txt e aperte ENTER. Aguarde terminar.
+
+4. Configurando o Banco de Dados (MySQL)
+Deixe o VS Code quietinho e abra o programa MySQL Workbench.
+
+Clique na sua conexão local (geralmente escrita como "Local instance MySQL") e digite sua senha.
+
+Com o Workbench aberto, clique no ícone de "Create a new SQL tab" (Criar uma nova aba SQL) ou vá em File > New Query Tab.
+
+Copie todo o código SQL que está lá no README.md (aquele código gigante que começa com -- RESET TOTAL).
+
+Cole esse código na aba em branco do MySQL Workbench.
+
+Clique no ícone de um Raio amarelo (Execute) que fica no menu superior do Workbench.
+
+Pronto! Banco de dados RGA_princp e tabelas criadas. Pode fechar o Workbench.
+
+5. Configurando as Senhas no Código (MUITO IMPORTANTE)
+Volte para o VS Code. No menu lateral esquerdo, onde ficam os arquivos do projeto, procure pelo arquivo app.py e clique nele para abrir.
+
+Ajustando o Banco de Dados:
+
+Desça o código do app.py até achar a parte da conexão com o banco de dados.
+
+Procure pela linha que diz: password='123456',
+
+Apague o 123456 e coloque a sua senha do MySQL (mantenha as aspas).
+
+Ajustando o Email (Para o sistema de mensagens funcionar):
+
+No início do arquivo app.py, procure por:
+app.config['MAIL_USERNAME'] = 'seu.email@gmail.com'
+Troque pelo seu endereço de email real do Gmail.
+
+Logo abaixo, procure por:
+app.config['MAIL_PASSWORD'] = 'sua senha de aplicativo aqui'
+Troque pela sua Senha de Aplicativo gerada no Google (não é a sua senha normal de login do email).
+
+No final do arquivo app.py, procure por sender="seu.email@gmail.com" e coloque seu email novamente.
+
+Salve o arquivo apertando Ctrl + S.
+
+6. Rodando o Projeto Finalmente!
+Volte para o terminal do VS Code (verifique se o (venv) ainda está ativado na frente da linha).
+
+Digite o seguinte comando e aperte ENTER:
+python app.py
+
+Se tudo deu certo, o terminal vai mostrar uma mensagem parecida com:
+Running on [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+Segure a tecla Ctrl do seu teclado e clique nesse link [http://127.0.0.1:5000](http://127.0.0.1:5000) no terminal.
+
+Seu navegador vai abrir com o CatiraX funcionando! 🎉
+
+(Dica: Quando quiser desligar o servidor, clique no terminal do VS Code e aperte Ctrl + C).
